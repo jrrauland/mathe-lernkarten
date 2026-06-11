@@ -12,25 +12,35 @@
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 :root{--bg:#f1f5f9;--surface:#fff;--border:#e2e8f0;--text:#1e293b;--muted:#64748b;--green:#16a34a;--green-bg:#dcfce7;--red:#dc2626;--red-bg:#fee2e2;--radius:20px;}
 html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:'Nunito',sans-serif;}
-#screen-menu{padding:24px 16px;max-width:520px;margin:0 auto;}
-.menu-header{text-align:center;padding:32px 0 28px;}
+
+/* ── MENU ── */
+#screen-menu{padding:24px 16px;max-width:520px;margin:0 auto;position:relative;}
+.menu-header{text-align:center;padding:32px 0 8px;position:relative;}
 .menu-title{font-family:'Baloo 2',cursive;font-size:30px;font-weight:800;color:#1e293b;line-height:1.1}
 .menu-sub{font-size:14px;color:var(--muted);font-weight:600;margin-top:8px}
+.btn-settings{position:absolute;top:28px;right:0;background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:6px 10px;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.08);}
+.btn-settings-icon{font-size:20px;line-height:1;}
+.btn-settings-label{font-size:9px;font-weight:700;color:var(--muted);letter-spacing:.3px;}
+.meta-bar{display:flex;gap:10px;justify-content:center;padding:12px 0 16px;}
+.meta-chip{background:var(--surface);border:1.5px solid var(--border);border-radius:99px;padding:6px 14px;font-size:13px;font-weight:700;color:var(--text);}
 .set-grid{display:flex;flex-direction:column;gap:12px;}
-.set-card{background:var(--surface);border-radius:18px;padding:20px;display:flex;align-items:center;gap:16px;cursor:pointer;border:1.5px solid var(--border);transition:transform .15s;position:relative;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06);}
+.set-card{background:var(--surface);border-radius:18px;padding:18px 20px;display:flex;align-items:center;gap:14px;cursor:pointer;border:1.5px solid var(--border);transition:transform .15s;position:relative;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06);}
 .set-card:active{transform:scale(.97)}
-.set-icon{font-size:36px;line-height:1;flex-shrink:0}.set-info{flex:1}
-.set-title{font-family:'Baloo 2',cursive;font-size:17px;font-weight:800;line-height:1.2}
-.set-meta{font-size:12px;color:var(--muted);font-weight:600;margin-top:4px}
-.set-arrow{font-size:20px;color:var(--muted);flex-shrink:0}
-.set-badge{font-size:28px;flex-shrink:0;margin-right:4px;}
+.set-icon{font-size:32px;line-height:1;flex-shrink:0}
+.set-info{flex:1}
+.set-title{font-family:'Baloo 2',cursive;font-size:16px;font-weight:800;line-height:1.2}
+.set-meta{font-size:12px;color:var(--muted);font-weight:600;margin-top:3px}
+.set-badge{font-size:24px;flex-shrink:0;margin-right:2px;}
+.set-arrow{font-size:18px;color:var(--muted);flex-shrink:0}
 .set-progress{position:absolute;bottom:0;left:0;height:3px;}
-.menu-footer{text-align:center;padding:24px 0 8px;font-size:12px;color:var(--muted);font-weight:600}
+.menu-footer{text-align:center;padding:20px 0 8px;font-size:12px;color:var(--muted);font-weight:600}
+
+/* ── APP ── */
 #screen-app{display:none;}
 #app-inner{height:100vh;display:flex;flex-direction:column;max-width:520px;margin:0 auto;padding:16px;gap:10px;}
 .hdr{display:flex;align-items:center;gap:10px;}
 .btn-back{background:var(--surface);border:1.5px solid var(--border);border-radius:10px;color:var(--text);font-size:13px;font-weight:700;padding:6px 12px;cursor:pointer;white-space:nowrap;}
-.app-title{font-family:'Baloo 2',cursive;font-size:17px;font-weight:800;line-height:1.2;flex:1}
+.app-title{font-family:'Baloo 2',cursive;font-size:16px;font-weight:800;line-height:1.2;flex:1}
 .round-badge{background:var(--surface);border:1.5px solid var(--border);border-radius:99px;padding:4px 12px;font-size:12px;color:var(--muted);font-weight:600;white-space:nowrap;}
 .stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
 .stat{background:var(--surface);border-radius:14px;padding:10px 6px;text-align:center;border:1.5px solid var(--border);}
@@ -38,6 +48,10 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:'Nu
 .s-right .stat-n{color:var(--green)}.s-wrong .stat-n{color:var(--red)}
 .prog-wrap{height:6px;background:var(--border);border-radius:3px;overflow:hidden}
 .prog-fill{height:100%;border-radius:3px;transition:width .4s ease;width:0%}
+
+/* countdown number on card */
+.countdown-num{position:absolute;top:12px;right:14px;font-family:'Baloo 2',cursive;font-size:44px;font-weight:800;color:var(--muted);opacity:.7;z-index:5;pointer-events:none;display:none;}
+
 .card-row{position:relative;}
 .nav-btn{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.9);border:1.5px solid var(--border);color:var(--text);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .15s;box-shadow:0 1px 4px rgba(0,0,0,.12);user-select:none;z-index:10;}
 .nav-btn:active{background:#f1f5f9;}.nav-btn-left{left:8px;}.nav-btn-right{right:8px;}
@@ -65,11 +79,14 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:'Nu
 .weak-row{display:flex;gap:6px;flex-wrap:wrap;min-height:18px}
 .chip{font-size:11px;font-weight:700;padding:3px 9px;border-radius:99px;background:var(--red-bg);color:var(--red);}
 .memory-hint{font-size:11px;color:var(--muted);text-align:center;font-weight:600}.memory-hint span{color:var(--green)}
-#screen-finish{display:none;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:24px;gap:16px;max-width:520px;margin:0 auto;background:var(--bg);}
+
+/* ── FINISH ── */
+#screen-finish{display:none;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:24px;gap:14px;max-width:520px;margin:0 auto;background:var(--bg);}
 .finish-emoji{font-size:56px;line-height:1}.finish-title{font-family:'Baloo 2',cursive;font-size:28px;font-weight:800;text-align:center}
 .finish-sub{font-size:15px;color:var(--muted);font-weight:600;text-align:center}
-.score-ring{width:110px;height:110px;position:relative}.score-ring svg{transform:rotate(-90deg)}
-.score-center{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Baloo 2',cursive;font-size:26px;font-weight:800;color:var(--text)}
+.stars{font-size:40px;letter-spacing:4px;}
+.score-ring{width:100px;height:100px;position:relative}.score-ring svg{transform:rotate(-90deg)}
+.score-center{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Baloo 2',cursive;font-size:24px;font-weight:800;color:var(--text)}
 .weak-section{width:100%;background:var(--surface);border-radius:var(--radius);padding:16px;border:1.5px solid var(--border);}
 .weak-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
 .weak-item{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border);font-size:14px;font-weight:700;color:var(--text);}.weak-item:last-child{border:none}
@@ -77,25 +94,70 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:'Nu
 .save-badge{font-size:12px;color:var(--green);font-weight:700;text-align:center}
 .btn-row-finish{display:flex;gap:10px;width:100%}
 .btn-restart{flex:1;padding:16px;border:none;border-radius:14px;color:#fff;font-family:'Nunito',sans-serif;font-size:17px;font-weight:800;cursor:pointer;}
-.btn-reset{padding:16px 14px;background:var(--surface);border:1.5px solid var(--border);border-radius:14px;color:var(--muted);font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
+.btn-reset-fin{padding:16px 14px;background:var(--surface);border:1.5px solid var(--border);border-radius:14px;color:var(--muted);font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
 .btn-back-finish{width:100%;padding:14px;background:var(--surface);border:1.5px solid var(--border);border-radius:14px;color:var(--muted);font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;cursor:pointer;}
+
+/* ── SETTINGS ── */
+#screen-settings{display:none;padding:24px 16px;max-width:520px;margin:0 auto;}
+.settings-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-top:16px;}
+.settings-title{font-family:'Baloo 2',cursive;font-size:24px;font-weight:800;color:#1e293b;}
+.s-section{background:var(--surface);border:1.5px solid var(--border);border-radius:18px;padding:18px 20px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.06);}
+.s-section-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:14px;}
+.s-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);}
+.s-row:last-child{border:none;padding-bottom:0;}
+.s-row-label{font-size:14px;font-weight:700;color:var(--text);}
+.s-row-sub{font-size:11px;color:var(--muted);font-weight:600;margin-top:2px;}
+.toggle{width:48px;height:26px;border-radius:13px;background:var(--border);position:relative;cursor:pointer;transition:background .2s;flex-shrink:0;border:none;}
+.toggle.on{background:#16a34a;}
+.toggle::after{content:'';position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.2);}
+.toggle.on::after{transform:translateX(22px);}
+.btn-group{display:flex;gap:6px;flex-wrap:wrap;}
+.btn-opt{padding:7px 14px;border-radius:10px;border:1.5px solid var(--border);background:var(--surface);font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;color:var(--text);cursor:pointer;}
+.btn-opt.active{background:#0284c7;border-color:#0284c7;color:#fff;}
+.reset-list{display:flex;flex-direction:column;gap:8px;}
+.reset-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);}
+.reset-item:last-child{border:none}
+.reset-item-label{font-size:13px;font-weight:700;color:var(--text);}
+.reset-item-sub{font-size:11px;color:var(--muted);font-weight:600;}
+.btn-reset-one{padding:5px 12px;border-radius:8px;background:var(--red-bg);border:1px solid #fca5a5;color:var(--red);font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+.btn-reset-all{width:100%;padding:12px;border-radius:12px;background:var(--red-bg);border:1.5px solid #fca5a5;color:var(--red);font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;cursor:pointer;margin-top:4px;}
+.btn-back-settings{width:100%;padding:14px;background:var(--surface);border:1.5px solid var(--border);border-radius:14px;color:var(--muted);font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;cursor:pointer;margin-top:8px;}
+.pin-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;align-items:center;justify-content:center;}
+.pin-overlay.show{display:flex;}
+.pin-box{background:var(--surface);border-radius:20px;padding:28px 24px;max-width:300px;width:90%;text-align:center;}
+.pin-title{font-family:'Baloo 2',cursive;font-size:20px;font-weight:800;margin-bottom:8px;}
+.pin-sub{font-size:13px;color:var(--muted);margin-bottom:16px;}
+.pin-input{width:100%;padding:12px;border:1.5px solid var(--border);border-radius:12px;font-size:20px;text-align:center;letter-spacing:8px;font-family:'Nunito',sans-serif;font-weight:700;margin-bottom:12px;}
+.pin-row{display:flex;gap:8px;}
+.pin-btn{flex:1;padding:11px;border-radius:10px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;cursor:pointer;}
+.pin-confirm{background:#0284c7;border:none;color:#fff;}
+.pin-cancel{background:var(--bg);border:1.5px solid var(--border);color:var(--muted);}
 </style>
 </head>
 <body>
+
+<!-- MENU -->
 <div id="screen-menu">
   <div class="menu-header">
     <div class="menu-title">✏️ Mathe<br>Lernkarten</div>
     <div class="menu-sub">Wähle einen Kartensatz</div>
+    <button class="btn-settings" onclick="goSettings()"><span class="btn-settings-icon">⚙️</span><span class="btn-settings-label">Einstellungen</span></button>
+  </div>
+  <div class="meta-bar">
+    <div class="meta-chip" id="meta-streak">🔥 0 Tage</div>
+    <div class="meta-chip" id="meta-rounds">⭐ 0 Runden</div>
   </div>
   <div class="set-grid" id="set-grid"></div>
   <div class="menu-footer">💾 Lernfortschritt wird automatisch gespeichert</div>
 </div>
+
+<!-- APP -->
 <div id="screen-app">
   <div id="app-inner">
     <div class="hdr">
       <button class="btn-back" onclick="goMenu()">← Zurück</button>
       <div class="app-title" id="app-title"></div>
-      <div class="round-badge" id="round-badge">1 / 20</div>
+      <div class="round-badge" id="round-badge">1 / 10</div>
     </div>
     <div class="stats">
       <div class="stat s-total"><div class="stat-n" id="s-total">0</div><div class="stat-l">Gesamt</div></div>
@@ -107,6 +169,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:'Nu
       <button class="nav-btn nav-btn-left" onclick="navCard(-1)"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><polyline points="14,4 7,11 14,18" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       <div class="card-scene" onclick="flipCard()">
         <div class="card-body" id="card-body">
+          <div class="countdown-num" id="countdown-num"></div>
           <div class="face face-front">
             <div class="op-tag" id="op-tag-front"></div>
             <div class="problem-txt" id="problem"></div>
@@ -134,12 +197,15 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:'Nu
     <div class="memory-hint" id="memory-hint"></div>
   </div>
 </div>
+
+<!-- FINISH -->
 <div id="screen-finish">
   <div class="finish-emoji" id="finish-emoji">🎉</div>
   <div class="finish-title" id="finish-title">Runde geschafft!</div>
+  <div class="stars" id="finish-stars">⭐⭐⭐</div>
   <div class="finish-sub" id="finish-sub"></div>
   <div class="score-ring">
-    <svg width="110" height="110" viewBox="0 0 110 110">
+    <svg width="100" height="100" viewBox="0 0 110 110">
       <circle cx="55" cy="55" r="46" fill="none" stroke="#e2e8f0" stroke-width="10"/>
       <circle cx="55" cy="55" r="46" fill="none" id="ring-arc" stroke="#16a34a" stroke-width="10" stroke-linecap="round" stroke-dasharray="289" stroke-dashoffset="289"/>
     </svg>
@@ -151,27 +217,209 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:'Nu
   </div>
   <div class="btn-row-finish">
     <button class="btn-restart" id="btn-restart" onclick="restart()">Nächste Runde →</button>
-    <button class="btn-reset" onclick="resetProgress()">🗑 Reset</button>
+    <button class="btn-reset-fin" onclick="resetCurrent()">🗑 Reset</button>
   </div>
   <button class="btn-back-finish" onclick="goMenu()">← Zurück zur Übersicht</button>
 </div>
+
+<!-- SETTINGS -->
+<div id="screen-settings">
+  <div class="settings-header">
+    <div class="settings-title">⚙️ Einstellungen</div>
+  </div>
+  <button class="btn-back-settings" onclick="goMenu()">← Zurück zur Übersicht</button>
+  <div style="margin-top:14px;">
+
+  <div class="s-section">
+    <div class="s-section-title">Karten pro Runde</div>
+    <div class="btn-group" id="size-btns">
+      <button class="btn-opt" onclick="setSetting('deckSize',5,this)">5</button>
+      <button class="btn-opt" onclick="setSetting('deckSize',10,this)">10</button>
+      <button class="btn-opt" onclick="setSetting('deckSize',15,this)">15</button>
+      <button class="btn-opt" onclick="setSetting('deckSize',20,this)">20</button>
+      <button class="btn-opt" onclick="setSetting('deckSize',30,this)">30</button>
+    </div>
+  </div>
+
+  <div class="s-section">
+    <div class="s-section-title">Zeitlimit pro Karte</div>
+    <div class="btn-group" id="timer-btns">
+      <button class="btn-opt" onclick="setSetting('timerSecs',0,this)">Aus</button>
+      <button class="btn-opt" onclick="setSetting('timerSecs',5,this)">5s</button>
+      <button class="btn-opt" onclick="setSetting('timerSecs',10,this)">10s</button>
+      <button class="btn-opt" onclick="setSetting('timerSecs',15,this)">15s</button>
+      <button class="btn-opt" onclick="setSetting('timerSecs',20,this)">20s</button>
+    </div>
+  </div>
+
+  <div class="s-section">
+    <div class="s-section-title">Weitere Optionen</div>
+    <div class="s-row">
+      <div>
+        <div class="s-row-label">Zahlenstrahl anzeigen</div>
+        <div class="s-row-sub">Erscheint nach dem Umdrehen</div>
+      </div>
+      <button class="toggle" id="tog-nl" onclick="toggleSetting('showNL',this)"></button>
+    </div>
+    <div class="s-row">
+      <div>
+        <div class="s-row-label">Reihenfolge: sequenziell</div>
+        <div class="s-row-sub">Karten immer in gleicher Reihenfolge</div>
+      </div>
+      <button class="toggle" id="tog-seq" onclick="toggleSetting('sequential',this)"></button>
+    </div>
+    <div class="s-row">
+      <div>
+        <div class="s-row-label">Beide Richtungen (Plus)</div>
+        <div class="s-row-sub">Auch „? + 3 = 7" fragen</div>
+      </div>
+      <button class="toggle" id="tog-both" onclick="toggleSetting('bothDir',this)"></button>
+    </div>
+  </div>
+
+  <div class="s-section">
+    <div class="s-section-title">Einstellungen sperren</div>
+    <div class="s-row">
+      <div>
+        <div class="s-row-label">PIN-Schutz</div>
+        <div class="s-row-sub">Einstellungen mit PIN sperren</div>
+      </div>
+      <button class="toggle" id="tog-pin" onclick="togglePin(this)"></button>
+    </div>
+  </div>
+
+  <div class="s-section">
+    <div class="s-section-title">Lernfortschritt zurücksetzen</div>
+    <div class="reset-list" id="reset-list"></div>
+    <button class="btn-reset-all" onclick="resetAll()">🗑 Alle zurücksetzen</button>
+  </div>
+
+  </div>
+  <button class="btn-back-settings" onclick="goMenu()">← Zurück zur Übersicht</button>
+</div>
+
+<!-- PIN overlay -->
+<div class="pin-overlay" id="pin-overlay">
+  <div class="pin-box">
+    <div class="pin-title" id="pin-title">PIN eingeben</div>
+    <div class="pin-sub" id="pin-sub">Gib den 4-stelligen PIN ein</div>
+    <input class="pin-input" id="pin-input" type="password" maxlength="4" inputmode="numeric" pattern="[0-9]*"/>
+    <div class="pin-row">
+      <button class="pin-btn pin-cancel" onclick="closePinOverlay()">Abbrechen</button>
+      <button class="pin-btn pin-confirm" onclick="confirmPin()">OK</button>
+    </div>
+    <div id="pin-error" style="color:#dc2626;font-size:12px;margin-top:8px;"></div>
+  </div>
+</div>
+
 <script>
-const SETS={"set0": {"id": "set0", "title": "Verliebte Zahlen (+10)", "emoji": "❤️", "color_main": "#e11d48", "color_bg": "#fff1f2", "color_border": "#fda4af", "color_light": "#fecdd3", "color_dark": "#881337", "color_muted": "#fda4af", "storage_key": "weights_set0", "op_label": "Addition", "cards": [[1, "+", 9, 10], [2, "+", 8, 10], [3, "+", 7, 10], [4, "+", 6, 10], [5, "+", 5, 10], [6, "+", 4, 10], [7, "+", 3, 10], [8, "+", 2, 10], [9, "+", 1, 10]]}, "set1": {"id": "set1", "title": "Plus – Ergebnis unter 10", "emoji": "➕", "color_main": "#0284c7", "color_bg": "#e0f2fe", "color_border": "#7dd3fc", "color_light": "#bae6fd", "color_dark": "#0369a1", "color_muted": "#7dd3fc", "storage_key": "weights_set1", "op_label": "Addition", "cards": [[1, "+", 1, 2], [1, "+", 2, 3], [1, "+", 3, 4], [1, "+", 4, 5], [1, "+", 5, 6], [1, "+", 6, 7], [1, "+", 7, 8], [1, "+", 8, 9], [2, "+", 1, 3], [2, "+", 2, 4], [2, "+", 3, 5], [2, "+", 4, 6], [2, "+", 5, 7], [2, "+", 6, 8], [2, "+", 7, 9], [3, "+", 1, 4], [3, "+", 2, 5], [3, "+", 3, 6], [3, "+", 4, 7], [3, "+", 5, 8], [3, "+", 6, 9], [4, "+", 1, 5], [4, "+", 2, 6], [4, "+", 3, 7], [4, "+", 4, 8], [4, "+", 5, 9], [5, "+", 1, 6], [5, "+", 2, 7], [5, "+", 3, 8], [5, "+", 4, 9], [6, "+", 1, 7], [6, "+", 2, 8], [6, "+", 3, 9], [7, "+", 1, 8], [7, "+", 2, 9], [8, "+", 1, 9]]}, "set2a": {"id": "set2a", "title": "Plus – Ergebnis 10–20 (1–9)", "emoji": "➕", "color_main": "#4338ca", "color_bg": "#e0e7ff", "color_border": "#a5b4fc", "color_light": "#c7d2fe", "color_dark": "#1e1b4b", "color_muted": "#a5b4fc", "storage_key": "weights_set2a", "op_label": "Addition", "badge": "🪶", "cards": [[1, "+", 9, 10], [2, "+", 8, 10], [2, "+", 9, 11], [3, "+", 7, 10], [3, "+", 8, 11], [3, "+", 9, 12], [4, "+", 6, 10], [4, "+", 7, 11], [4, "+", 8, 12], [4, "+", 9, 13], [5, "+", 5, 10], [5, "+", 6, 11], [5, "+", 7, 12], [5, "+", 8, 13], [5, "+", 9, 14], [6, "+", 4, 10], [6, "+", 5, 11], [6, "+", 6, 12], [6, "+", 7, 13], [6, "+", 8, 14], [6, "+", 9, 15], [7, "+", 3, 10], [7, "+", 4, 11], [7, "+", 5, 12], [7, "+", 6, 13], [7, "+", 7, 14], [7, "+", 8, 15], [7, "+", 9, 16], [8, "+", 2, 10], [8, "+", 3, 11], [8, "+", 4, 12], [8, "+", 5, 13], [8, "+", 6, 14], [8, "+", 7, 15], [8, "+", 8, 16], [8, "+", 9, 17], [9, "+", 1, 10], [9, "+", 2, 11], [9, "+", 3, 12], [9, "+", 4, 13], [9, "+", 5, 14], [9, "+", 6, 15], [9, "+", 7, 16], [9, "+", 8, 17], [9, "+", 9, 18]]}, "set2b": {"id": "set2b", "title": "Plus – Ergebnis 10–20 (10+)", "emoji": "➕", "color_main": "#0e7490", "color_bg": "#e0f7fa", "color_border": "#67e8f9", "color_light": "#a5f3fc", "color_dark": "#083344", "color_muted": "#67e8f9", "storage_key": "weights_set2b", "op_label": "Addition", "badge": "🏋️", "cards": [[1, "+", 10, 11], [1, "+", 11, 12], [1, "+", 12, 13], [1, "+", 13, 14], [1, "+", 14, 15], [1, "+", 15, 16], [1, "+", 16, 17], [1, "+", 17, 18], [1, "+", 18, 19], [1, "+", 19, 20], [2, "+", 10, 12], [2, "+", 11, 13], [2, "+", 12, 14], [2, "+", 13, 15], [2, "+", 14, 16], [2, "+", 15, 17], [2, "+", 16, 18], [2, "+", 17, 19], [2, "+", 18, 20], [3, "+", 10, 13], [3, "+", 11, 14], [3, "+", 12, 15], [3, "+", 13, 16], [3, "+", 14, 17], [3, "+", 15, 18], [3, "+", 16, 19], [3, "+", 17, 20], [4, "+", 10, 14], [4, "+", 11, 15], [4, "+", 12, 16], [4, "+", 13, 17], [4, "+", 14, 18], [4, "+", 15, 19], [4, "+", 16, 20], [5, "+", 10, 15], [5, "+", 11, 16], [5, "+", 12, 17], [5, "+", 13, 18], [5, "+", 14, 19], [5, "+", 15, 20], [6, "+", 10, 16], [6, "+", 11, 17], [6, "+", 12, 18], [6, "+", 13, 19], [6, "+", 14, 20], [7, "+", 10, 17], [7, "+", 11, 18], [7, "+", 12, 19], [7, "+", 13, 20], [8, "+", 10, 18], [8, "+", 11, 19], [8, "+", 12, 20], [9, "+", 10, 19], [9, "+", 11, 20], [10, "+", 1, 11], [10, "+", 2, 12], [10, "+", 3, 13], [10, "+", 4, 14], [10, "+", 5, 15], [10, "+", 6, 16], [10, "+", 7, 17], [10, "+", 8, 18], [10, "+", 9, 19], [10, "+", 10, 20], [11, "+", 1, 12], [11, "+", 2, 13], [11, "+", 3, 14], [11, "+", 4, 15], [11, "+", 5, 16], [11, "+", 6, 17], [11, "+", 7, 18], [11, "+", 8, 19], [11, "+", 9, 20], [12, "+", 1, 13], [12, "+", 2, 14], [12, "+", 3, 15], [12, "+", 4, 16], [12, "+", 5, 17], [12, "+", 6, 18], [12, "+", 7, 19], [12, "+", 8, 20], [13, "+", 1, 14], [13, "+", 2, 15], [13, "+", 3, 16], [13, "+", 4, 17], [13, "+", 5, 18], [13, "+", 6, 19], [13, "+", 7, 20], [14, "+", 1, 15], [14, "+", 2, 16], [14, "+", 3, 17], [14, "+", 4, 18], [14, "+", 5, 19], [14, "+", 6, 20], [15, "+", 1, 16], [15, "+", 2, 17], [15, "+", 3, 18], [15, "+", 4, 19], [15, "+", 5, 20], [16, "+", 1, 17], [16, "+", 2, 18], [16, "+", 3, 19], [16, "+", 4, 20], [17, "+", 1, 18], [17, "+", 2, 19], [17, "+", 3, 20], [18, "+", 1, 19], [18, "+", 2, 20], [19, "+", 1, 20]]}, "set3": {"id": "set3", "title": "Minus – Summanden unter 10", "emoji": "➖", "color_main": "#be185d", "color_bg": "#fce7f3", "color_border": "#f9a8d4", "color_light": "#fbcfe8", "color_dark": "#500724", "color_muted": "#f9a8d4", "storage_key": "weights_set3", "op_label": "Subtraktion", "cards": [[2, "-", 1, 1], [3, "-", 1, 2], [3, "-", 2, 1], [4, "-", 1, 3], [4, "-", 2, 2], [4, "-", 3, 1], [5, "-", 1, 4], [5, "-", 2, 3], [5, "-", 3, 2], [5, "-", 4, 1], [6, "-", 1, 5], [6, "-", 2, 4], [6, "-", 3, 3], [6, "-", 4, 2], [6, "-", 5, 1], [7, "-", 1, 6], [7, "-", 2, 5], [7, "-", 3, 4], [7, "-", 4, 3], [7, "-", 5, 2], [7, "-", 6, 1], [8, "-", 1, 7], [8, "-", 2, 6], [8, "-", 3, 5], [8, "-", 4, 4], [8, "-", 5, 3], [8, "-", 6, 2], [8, "-", 7, 1], [9, "-", 1, 8], [9, "-", 2, 7], [9, "-", 3, 6], [9, "-", 4, 5], [9, "-", 5, 4], [9, "-", 6, 3], [9, "-", 7, 2], [9, "-", 8, 1]]}, "set4": {"id": "set4", "title": "Minus – Summanden 10 bis 20", "emoji": "➖", "color_main": "#b45309", "color_bg": "#fef3c7", "color_border": "#fcd34d", "color_light": "#fde68a", "color_dark": "#451a03", "color_muted": "#fcd34d", "storage_key": "weights_set4", "op_label": "Subtraktion", "cards": [[10, "-", 1, 9], [10, "-", 2, 8], [10, "-", 3, 7], [10, "-", 4, 6], [10, "-", 5, 5], [10, "-", 6, 4], [10, "-", 7, 3], [10, "-", 8, 2], [10, "-", 9, 1], [11, "-", 1, 10], [11, "-", 2, 9], [11, "-", 3, 8], [11, "-", 4, 7], [11, "-", 5, 6], [11, "-", 6, 5], [11, "-", 7, 4], [11, "-", 8, 3], [11, "-", 9, 2], [11, "-", 10, 1], [12, "-", 1, 11], [12, "-", 2, 10], [12, "-", 3, 9], [12, "-", 4, 8], [12, "-", 5, 7], [12, "-", 6, 6], [12, "-", 7, 5], [12, "-", 8, 4], [12, "-", 9, 3], [12, "-", 10, 2], [12, "-", 11, 1], [13, "-", 1, 12], [13, "-", 2, 11], [13, "-", 3, 10], [13, "-", 4, 9], [13, "-", 5, 8], [13, "-", 6, 7], [13, "-", 7, 6], [13, "-", 8, 5], [13, "-", 9, 4], [13, "-", 10, 3], [13, "-", 11, 2], [13, "-", 12, 1], [14, "-", 1, 13], [14, "-", 2, 12], [14, "-", 3, 11], [14, "-", 4, 10], [14, "-", 5, 9], [14, "-", 6, 8], [14, "-", 7, 7], [14, "-", 8, 6], [14, "-", 9, 5], [14, "-", 10, 4], [14, "-", 11, 3], [14, "-", 12, 2], [14, "-", 13, 1], [15, "-", 1, 14], [15, "-", 2, 13], [15, "-", 3, 12], [15, "-", 4, 11], [15, "-", 5, 10], [15, "-", 6, 9], [15, "-", 7, 8], [15, "-", 8, 7], [15, "-", 9, 6], [15, "-", 10, 5], [15, "-", 11, 4], [15, "-", 12, 3], [15, "-", 13, 2], [15, "-", 14, 1], [16, "-", 1, 15], [16, "-", 2, 14], [16, "-", 3, 13], [16, "-", 4, 12], [16, "-", 5, 11], [16, "-", 6, 10], [16, "-", 7, 9], [16, "-", 8, 8], [16, "-", 9, 7], [16, "-", 10, 6], [16, "-", 11, 5], [16, "-", 12, 4], [16, "-", 13, 3], [16, "-", 14, 2], [16, "-", 15, 1], [17, "-", 1, 16], [17, "-", 2, 15], [17, "-", 3, 14], [17, "-", 4, 13], [17, "-", 5, 12], [17, "-", 6, 11], [17, "-", 7, 10], [17, "-", 8, 9], [17, "-", 9, 8], [17, "-", 10, 7], [17, "-", 11, 6], [17, "-", 12, 5], [17, "-", 13, 4], [17, "-", 14, 3], [17, "-", 15, 2], [17, "-", 16, 1], [18, "-", 1, 17], [18, "-", 2, 16], [18, "-", 3, 15], [18, "-", 4, 14], [18, "-", 5, 13], [18, "-", 6, 12], [18, "-", 7, 11], [18, "-", 8, 10], [18, "-", 9, 9], [18, "-", 10, 8], [18, "-", 11, 7], [18, "-", 12, 6], [18, "-", 13, 5], [18, "-", 14, 4], [18, "-", 15, 3], [18, "-", 16, 2], [18, "-", 17, 1], [19, "-", 1, 18], [19, "-", 2, 17], [19, "-", 3, 16], [19, "-", 4, 15], [19, "-", 5, 14], [19, "-", 6, 13], [19, "-", 7, 12], [19, "-", 8, 11], [19, "-", 9, 10], [19, "-", 10, 9], [19, "-", 11, 8], [19, "-", 12, 7], [19, "-", 13, 6], [19, "-", 14, 5], [19, "-", 15, 4], [19, "-", 16, 3], [19, "-", 17, 2], [19, "-", 18, 1], [20, "-", 1, 19], [20, "-", 2, 18], [20, "-", 3, 17], [20, "-", 4, 16], [20, "-", 5, 15], [20, "-", 6, 14], [20, "-", 7, 13], [20, "-", 8, 12], [20, "-", 9, 11], [20, "-", 10, 10], [20, "-", 11, 9], [20, "-", 12, 8], [20, "-", 13, 7], [20, "-", 14, 6], [20, "-", 15, 5], [20, "-", 16, 4], [20, "-", 17, 3], [20, "-", 18, 2], [20, "-", 19, 1]]}};
-const DECK=20;
-let currentSet=null,deck=[],idx=0,flipped=false,correct=0,wrong=0,round=1,answered={},weights={};
+const SETS = {"set0": {"id": "set0", "title": "Verliebte Zahlen (+10)", "emoji": "❤️", "color_main": "#e11d48", "color_bg": "#fff1f2", "color_border": "#fda4af", "color_light": "#fecdd3", "color_dark": "#881337", "color_muted": "#fda4af", "storage_key": "weights_set0", "op_label": "Addition", "badge": null, "cards": [[1, "+", 9, 10], [2, "+", 8, 10], [3, "+", 7, 10], [4, "+", 6, 10], [5, "+", 5, 10], [6, "+", 4, 10], [7, "+", 3, 10], [8, "+", 2, 10], [9, "+", 1, 10]]}, "set1": {"id": "set1", "title": "Plus – Ergebnis unter 10", "emoji": "➕", "color_main": "#0284c7", "color_bg": "#e0f2fe", "color_border": "#7dd3fc", "color_light": "#bae6fd", "color_dark": "#0369a1", "color_muted": "#7dd3fc", "storage_key": "weights_set1", "op_label": "Addition", "badge": null, "cards": [[1, "+", 1, 2], [1, "+", 2, 3], [1, "+", 3, 4], [1, "+", 4, 5], [1, "+", 5, 6], [1, "+", 6, 7], [1, "+", 7, 8], [1, "+", 8, 9], [2, "+", 1, 3], [2, "+", 2, 4], [2, "+", 3, 5], [2, "+", 4, 6], [2, "+", 5, 7], [2, "+", 6, 8], [2, "+", 7, 9], [3, "+", 1, 4], [3, "+", 2, 5], [3, "+", 3, 6], [3, "+", 4, 7], [3, "+", 5, 8], [3, "+", 6, 9], [4, "+", 1, 5], [4, "+", 2, 6], [4, "+", 3, 7], [4, "+", 4, 8], [4, "+", 5, 9], [5, "+", 1, 6], [5, "+", 2, 7], [5, "+", 3, 8], [5, "+", 4, 9], [6, "+", 1, 7], [6, "+", 2, 8], [6, "+", 3, 9], [7, "+", 1, 8], [7, "+", 2, 9], [8, "+", 1, 9]]}, "set2a": {"id": "set2a", "title": "Plus – Ergebnis 10–20 (1–9)", "emoji": "➕", "color_main": "#4338ca", "color_bg": "#e0e7ff", "color_border": "#a5b4fc", "color_light": "#c7d2fe", "color_dark": "#1e1b4b", "color_muted": "#a5b4fc", "storage_key": "weights_set2a", "op_label": "Addition", "badge": "🏋️", "cards": [[1, "+", 9, 10], [2, "+", 8, 10], [2, "+", 9, 11], [3, "+", 7, 10], [3, "+", 8, 11], [3, "+", 9, 12], [4, "+", 6, 10], [4, "+", 7, 11], [4, "+", 8, 12], [4, "+", 9, 13], [5, "+", 5, 10], [5, "+", 6, 11], [5, "+", 7, 12], [5, "+", 8, 13], [5, "+", 9, 14], [6, "+", 4, 10], [6, "+", 5, 11], [6, "+", 6, 12], [6, "+", 7, 13], [6, "+", 8, 14], [6, "+", 9, 15], [7, "+", 3, 10], [7, "+", 4, 11], [7, "+", 5, 12], [7, "+", 6, 13], [7, "+", 7, 14], [7, "+", 8, 15], [7, "+", 9, 16], [8, "+", 2, 10], [8, "+", 3, 11], [8, "+", 4, 12], [8, "+", 5, 13], [8, "+", 6, 14], [8, "+", 7, 15], [8, "+", 8, 16], [8, "+", 9, 17], [9, "+", 1, 10], [9, "+", 2, 11], [9, "+", 3, 12], [9, "+", 4, 13], [9, "+", 5, 14], [9, "+", 6, 15], [9, "+", 7, 16], [9, "+", 8, 17], [9, "+", 9, 18]]}, "set2b": {"id": "set2b", "title": "Plus – Ergebnis 10–20 (10+)", "emoji": "➕", "color_main": "#0e7490", "color_bg": "#e0f7fa", "color_border": "#67e8f9", "color_light": "#a5f3fc", "color_dark": "#083344", "color_muted": "#67e8f9", "storage_key": "weights_set2b", "op_label": "Addition", "badge": "🪶", "cards": [[1, "+", 10, 11], [1, "+", 11, 12], [1, "+", 12, 13], [1, "+", 13, 14], [1, "+", 14, 15], [1, "+", 15, 16], [1, "+", 16, 17], [1, "+", 17, 18], [1, "+", 18, 19], [1, "+", 19, 20], [2, "+", 10, 12], [2, "+", 11, 13], [2, "+", 12, 14], [2, "+", 13, 15], [2, "+", 14, 16], [2, "+", 15, 17], [2, "+", 16, 18], [2, "+", 17, 19], [2, "+", 18, 20], [3, "+", 10, 13], [3, "+", 11, 14], [3, "+", 12, 15], [3, "+", 13, 16], [3, "+", 14, 17], [3, "+", 15, 18], [3, "+", 16, 19], [3, "+", 17, 20], [4, "+", 10, 14], [4, "+", 11, 15], [4, "+", 12, 16], [4, "+", 13, 17], [4, "+", 14, 18], [4, "+", 15, 19], [4, "+", 16, 20], [5, "+", 10, 15], [5, "+", 11, 16], [5, "+", 12, 17], [5, "+", 13, 18], [5, "+", 14, 19], [5, "+", 15, 20], [6, "+", 10, 16], [6, "+", 11, 17], [6, "+", 12, 18], [6, "+", 13, 19], [6, "+", 14, 20], [7, "+", 10, 17], [7, "+", 11, 18], [7, "+", 12, 19], [7, "+", 13, 20], [8, "+", 10, 18], [8, "+", 11, 19], [8, "+", 12, 20], [9, "+", 10, 19], [9, "+", 11, 20], [10, "+", 1, 11], [10, "+", 2, 12], [10, "+", 3, 13], [10, "+", 4, 14], [10, "+", 5, 15], [10, "+", 6, 16], [10, "+", 7, 17], [10, "+", 8, 18], [10, "+", 9, 19], [10, "+", 10, 20], [11, "+", 1, 12], [11, "+", 2, 13], [11, "+", 3, 14], [11, "+", 4, 15], [11, "+", 5, 16], [11, "+", 6, 17], [11, "+", 7, 18], [11, "+", 8, 19], [11, "+", 9, 20], [12, "+", 1, 13], [12, "+", 2, 14], [12, "+", 3, 15], [12, "+", 4, 16], [12, "+", 5, 17], [12, "+", 6, 18], [12, "+", 7, 19], [12, "+", 8, 20], [13, "+", 1, 14], [13, "+", 2, 15], [13, "+", 3, 16], [13, "+", 4, 17], [13, "+", 5, 18], [13, "+", 6, 19], [13, "+", 7, 20], [14, "+", 1, 15], [14, "+", 2, 16], [14, "+", 3, 17], [14, "+", 4, 18], [14, "+", 5, 19], [14, "+", 6, 20], [15, "+", 1, 16], [15, "+", 2, 17], [15, "+", 3, 18], [15, "+", 4, 19], [15, "+", 5, 20], [16, "+", 1, 17], [16, "+", 2, 18], [16, "+", 3, 19], [16, "+", 4, 20], [17, "+", 1, 18], [17, "+", 2, 19], [17, "+", 3, 20], [18, "+", 1, 19], [18, "+", 2, 20], [19, "+", 1, 20]]}, "set3": {"id": "set3", "title": "Minus – Summanden unter 10", "emoji": "➖", "color_main": "#be185d", "color_bg": "#fce7f3", "color_border": "#f9a8d4", "color_light": "#fbcfe8", "color_dark": "#500724", "color_muted": "#f9a8d4", "storage_key": "weights_set3", "op_label": "Subtraktion", "badge": null, "cards": [[2, "-", 1, 1], [3, "-", 1, 2], [3, "-", 2, 1], [4, "-", 1, 3], [4, "-", 2, 2], [4, "-", 3, 1], [5, "-", 1, 4], [5, "-", 2, 3], [5, "-", 3, 2], [5, "-", 4, 1], [6, "-", 1, 5], [6, "-", 2, 4], [6, "-", 3, 3], [6, "-", 4, 2], [6, "-", 5, 1], [7, "-", 1, 6], [7, "-", 2, 5], [7, "-", 3, 4], [7, "-", 4, 3], [7, "-", 5, 2], [7, "-", 6, 1], [8, "-", 1, 7], [8, "-", 2, 6], [8, "-", 3, 5], [8, "-", 4, 4], [8, "-", 5, 3], [8, "-", 6, 2], [8, "-", 7, 1], [9, "-", 1, 8], [9, "-", 2, 7], [9, "-", 3, 6], [9, "-", 4, 5], [9, "-", 5, 4], [9, "-", 6, 3], [9, "-", 7, 2], [9, "-", 8, 1]]}, "set4": {"id": "set4", "title": "Minus – Summanden 10 bis 20", "emoji": "➖", "color_main": "#b45309", "color_bg": "#fef3c7", "color_border": "#fcd34d", "color_light": "#fde68a", "color_dark": "#451a03", "color_muted": "#fcd34d", "storage_key": "weights_set4", "op_label": "Subtraktion", "badge": null, "cards": [[10, "-", 1, 9], [10, "-", 2, 8], [10, "-", 3, 7], [10, "-", 4, 6], [10, "-", 5, 5], [10, "-", 6, 4], [10, "-", 7, 3], [10, "-", 8, 2], [10, "-", 9, 1], [11, "-", 1, 10], [11, "-", 2, 9], [11, "-", 3, 8], [11, "-", 4, 7], [11, "-", 5, 6], [11, "-", 6, 5], [11, "-", 7, 4], [11, "-", 8, 3], [11, "-", 9, 2], [11, "-", 10, 1], [12, "-", 1, 11], [12, "-", 2, 10], [12, "-", 3, 9], [12, "-", 4, 8], [12, "-", 5, 7], [12, "-", 6, 6], [12, "-", 7, 5], [12, "-", 8, 4], [12, "-", 9, 3], [12, "-", 10, 2], [12, "-", 11, 1], [13, "-", 1, 12], [13, "-", 2, 11], [13, "-", 3, 10], [13, "-", 4, 9], [13, "-", 5, 8], [13, "-", 6, 7], [13, "-", 7, 6], [13, "-", 8, 5], [13, "-", 9, 4], [13, "-", 10, 3], [13, "-", 11, 2], [13, "-", 12, 1], [14, "-", 1, 13], [14, "-", 2, 12], [14, "-", 3, 11], [14, "-", 4, 10], [14, "-", 5, 9], [14, "-", 6, 8], [14, "-", 7, 7], [14, "-", 8, 6], [14, "-", 9, 5], [14, "-", 10, 4], [14, "-", 11, 3], [14, "-", 12, 2], [14, "-", 13, 1], [15, "-", 1, 14], [15, "-", 2, 13], [15, "-", 3, 12], [15, "-", 4, 11], [15, "-", 5, 10], [15, "-", 6, 9], [15, "-", 7, 8], [15, "-", 8, 7], [15, "-", 9, 6], [15, "-", 10, 5], [15, "-", 11, 4], [15, "-", 12, 3], [15, "-", 13, 2], [15, "-", 14, 1], [16, "-", 1, 15], [16, "-", 2, 14], [16, "-", 3, 13], [16, "-", 4, 12], [16, "-", 5, 11], [16, "-", 6, 10], [16, "-", 7, 9], [16, "-", 8, 8], [16, "-", 9, 7], [16, "-", 10, 6], [16, "-", 11, 5], [16, "-", 12, 4], [16, "-", 13, 3], [16, "-", 14, 2], [16, "-", 15, 1], [17, "-", 1, 16], [17, "-", 2, 15], [17, "-", 3, 14], [17, "-", 4, 13], [17, "-", 5, 12], [17, "-", 6, 11], [17, "-", 7, 10], [17, "-", 8, 9], [17, "-", 9, 8], [17, "-", 10, 7], [17, "-", 11, 6], [17, "-", 12, 5], [17, "-", 13, 4], [17, "-", 14, 3], [17, "-", 15, 2], [17, "-", 16, 1], [18, "-", 1, 17], [18, "-", 2, 16], [18, "-", 3, 15], [18, "-", 4, 14], [18, "-", 5, 13], [18, "-", 6, 12], [18, "-", 7, 11], [18, "-", 8, 10], [18, "-", 9, 9], [18, "-", 10, 8], [18, "-", 11, 7], [18, "-", 12, 6], [18, "-", 13, 5], [18, "-", 14, 4], [18, "-", 15, 3], [18, "-", 16, 2], [18, "-", 17, 1], [19, "-", 1, 18], [19, "-", 2, 17], [19, "-", 3, 16], [19, "-", 4, 15], [19, "-", 5, 14], [19, "-", 6, 13], [19, "-", 7, 12], [19, "-", 8, 11], [19, "-", 9, 10], [19, "-", 10, 9], [19, "-", 11, 8], [19, "-", 12, 7], [19, "-", 13, 6], [19, "-", 14, 5], [19, "-", 15, 4], [19, "-", 16, 3], [19, "-", 17, 2], [19, "-", 18, 1], [20, "-", 1, 19], [20, "-", 2, 18], [20, "-", 3, 17], [20, "-", 4, 16], [20, "-", 5, 15], [20, "-", 6, 14], [20, "-", 7, 13], [20, "-", 8, 12], [20, "-", 9, 11], [20, "-", 10, 10], [20, "-", 11, 9], [20, "-", 12, 8], [20, "-", 13, 7], [20, "-", 14, 6], [20, "-", 15, 5], [20, "-", 16, 4], [20, "-", 17, 3], [20, "-", 18, 2], [20, "-", 19, 1]]}};
+
+// ── SETTINGS ──
+const DEFAULTS = {deckSize:10, timerSecs:10, showNL:true, sequential:false, bothDir:false, pin:null};
+function getS(k){
+  const v=localStorage.getItem('setting_'+k);
+  if(v===null) return DEFAULTS[k];
+  if(v==='true') return true;
+  if(v==='false') return false;
+  const n=Number(v);
+  return isNaN(n)?v:n;
+}
+function setS(k,v){localStorage.setItem('setting_'+k,v);}
+
+// ── AUDIO ──
+const AudioCtx=window.AudioContext||window.webkitAudioContext;
+let actx=null;
+function getACtx(){if(!actx){try{actx=new AudioCtx();}catch(e){}}return actx;}
+function playNote(freq,start,dur,vol=0.25,type='sine'){
+  try{
+    const ctx=getACtx();if(!ctx)return;
+    const o=ctx.createOscillator(),g=ctx.createGain();
+    o.connect(g);g.connect(ctx.destination);
+    o.type=type;o.frequency.value=freq;
+    g.gain.setValueAtTime(0,ctx.currentTime+start);
+    g.gain.linearRampToValueAtTime(vol,ctx.currentTime+start+0.04);
+    g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+start+dur);
+    o.start(ctx.currentTime+start);
+    o.stop(ctx.currentTime+start+dur+0.05);
+  }catch(e){}
+}
+function playCorrect(){
+  // warm ascending chime: C5 E5 G5
+  playNote(523,0,0.5);
+  playNote(659,0.18,0.5);
+  playNote(784,0.36,0.7);
+}
+function playWrong(){
+  // gentle descending: A3 F3
+  playNote(220,0,0.6,'sine',0.2);
+  playNote(174,0.3,0.5,'sine',0.15);
+}
+
+// ── STATS ──
+function getStats(){try{return JSON.parse(localStorage.getItem('appStats')||'{}')}catch(e){return{}}}
+function saveStats(s){try{localStorage.setItem('appStats',JSON.stringify(s));}catch(e){}}
+function recordRound(){
+  const s=getStats();
+  s.totalRounds=(s.totalRounds||0)+1;
+  const today=new Date().toDateString();
+  if(s.lastDay===today){s.streakDays=s.streakDays||1;}
+  else if(s.lastDay===new Date(Date.now()-86400000).toDateString()){s.streakDays=(s.streakDays||0)+1;}
+  else{s.streakDays=1;}
+  s.lastDay=today;
+  saveStats(s);
+}
+function updateMetaBar(){
+  const s=getStats();
+  document.getElementById('meta-streak').textContent='🔥 '+(s.streakDays||0)+' Tag'+(s.streakDays===1?'':'e');
+  document.getElementById('meta-rounds').textContent='⭐ '+(s.totalRounds||0)+' Runde'+(s.totalRounds===1?'':'n');
+}
+
+// ── WEIGHTS / PROGRESS ──
 function loadWeights(k){try{const s=localStorage.getItem(k);return s?JSON.parse(s):{}}catch(e){return{}}}
 function saveWeights(){try{localStorage.setItem(currentSet.storage_key,JSON.stringify(weights));}catch(e){}}
 function cardKey(c){return c[0]+c[1]+c[2]}
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+
+// ── DECK BUILDING ──
+let currentSet=null,deck=[],idx=0,flipped=false,correct=0,wrong=0,round=1,answered={},weights={};
+
 function buildDeck(){
-  const pool=[];for(const c of currentSet.cards){const w=weights[cardKey(c)]||1;for(let i=0;i<w;i++)pool.push(c)}
+  const DECK=getS('deckSize');
+  const seq=getS('sequential');
+  const bothDir=getS('bothDir');
+  let source=[...currentSet.cards];
+
+  // for addition sets (not set0), optionally add reversed cards
+  if(bothDir && currentSet.id!=='set0'){
+    const extras=[];
+    for(const c of currentSet.cards){
+      if(c[1]==='+' && c[0]!==c[2]) extras.push([c[2],c[1],c[0],c[3]]);
+    }
+    source=[...source,...extras];
+  }
+
+  if(seq){
+    // sequential: cycle through cards in fixed order based on round
+    const start=((round-1)*DECK)%source.length;
+    const res=[];
+    for(let i=0;i<DECK;i++) res.push(source[(start+i)%source.length]);
+    return res;
+  }
+
+  // weighted random
+  const pool=[];
+  for(const c of source){const w=weights[cardKey(c)]||1;for(let i=0;i<w;i++)pool.push(c)}
   shuffle(pool);const seen=new Set(),res=[];
-  for(const c of pool){if(!seen.has(cardKey(c))){seen.add(cardKey(c));res.push(c)}if(res.length>=DECK)break}
-  if(res.length<DECK){for(const c of shuffle([...currentSet.cards])){if(!seen.has(cardKey(c))){seen.add(cardKey(c));res.push(c)}if(res.length>=DECK)break}}
+  for(const c of pool){const k=cardKey(c);if(!seen.has(k)){seen.add(k);res.push(c)}if(res.length>=DECK)break}
+  if(res.length<DECK){for(const c of shuffle([...source])){const k=cardKey(c);if(!seen.has(k)){seen.add(k);res.push(c)}if(res.length>=DECK)break}}
   return res;
 }
+
+// ── NUMBER LINE ──
 function drawNumberLine(a,op,b,r){
   const svg=document.getElementById('nl-svg');
+  if(!getS('showNL')){svg.innerHTML='';return;}
   const ACC=currentSet.color_main,ACC_M=currentSet.color_muted,ACC_D=currentSet.color_dark;
   const x0=10,xN=322,y=44,bigH=8,step=(xN-x0)/20,start=a,end=r;let out='';
   out+=`<line x1="${x0}" y1="${y}" x2="${xN+5}" y2="${y}" stroke="${ACC_D}" stroke-width="1.5" stroke-linecap="round"/>`;
@@ -187,7 +435,107 @@ function drawNumberLine(a,op,b,r){
   out+=`<circle cx="${x0+end*step}" cy="${y}" r="5" fill="${ACC}"/>`;
   svg.innerHTML=out;
 }
+
+// ── TIMER ──
+let timerInterval=null;
+let timedOut=false;
+function startTimer(){
+  const secs=getS('timerSecs');
+  const numEl=document.getElementById('countdown-num');
+  clearInterval(timerInterval);timedOut=false;
+  if(!secs){numEl.style.display='none';return;}
+  let remaining=secs;
+  numEl.style.display='block';
+  numEl.textContent=remaining;
+  numEl.style.color='var(--muted)';
+  timerInterval=setInterval(()=>{
+    remaining--;
+    if(remaining<=0){
+      clearInterval(timerInterval);
+      numEl.style.display='none';
+      if(!flipped){timedOut=true;flipCard();}
+    } else {
+      numEl.textContent=remaining;
+      // turn orange in last 3 seconds
+      numEl.style.color=remaining<=3?'#f59e0b':'var(--muted)';
+    }
+  },1000);
+}
+function stopTimer(){
+  clearInterval(timerInterval);
+  document.getElementById('countdown-num').style.display='none';
+}
+
+// ── CARD DISPLAY ──
+function showCard(){
+  if(idx>=deck.length){finish();return}
+  const c=deck[idx];
+  const isVZ=currentSet.id==='set0';
+  document.getElementById('problem').textContent=isVZ?c[0]+' + ? = 10':c[0]+' '+c[1]+' '+c[2]+' =';
+  document.getElementById('back-eq').textContent=isVZ?c[0]+' + ? = 10':c[0]+' '+c[1]+' '+c[2]+' =';
+  document.getElementById('answer').textContent=isVZ?c[2]:c[3];
+  document.getElementById('card-body').classList.remove('flipped');
+  document.getElementById('btn-flip').style.display='';
+  document.getElementById('ans-row').style.display='none';
+  document.getElementById('nl-strip').classList.remove('visible');
+  flipped=false;timedOut=false;
+  if(isVZ){drawNumberLine(c[0],'+',c[2],10);}else{drawNumberLine(c[0],c[1],c[2],c[3]);}
+  updateUI();
+  startTimer();
+}
+
+function flipCard(){
+  if(flipped)return;flipped=true;
+  stopTimer();
+  document.getElementById('card-body').classList.add('flipped');
+  setTimeout(()=>{
+    document.getElementById('btn-flip').style.display='none';
+    document.getElementById('ans-row').style.display='flex';
+    if(getS('showNL')) document.getElementById('nl-strip').classList.add('visible');
+    // disable Richtig if card was auto-flipped due to timeout
+    const btnRight=document.querySelector('.btn-right');
+    if(timedOut){
+      btnRight.disabled=true;
+      btnRight.style.opacity='0.35';
+      btnRight.style.cursor='not-allowed';
+    } else {
+      btnRight.disabled=false;
+      btnRight.style.opacity='';
+      btnRight.style.cursor='';
+    }
+  },400);
+}
+
+function navCard(dir){stopTimer();idx=(idx+dir+deck.length)%deck.length;showCard();}
+
+function grade(ok){
+  const k=cardKey(deck[idx]);
+  if(answered[idx]===undefined){if(ok)correct++;else wrong++;}
+  else{if(answered[idx])correct--;else wrong--;if(ok)correct++;else wrong++;}
+  answered[idx]=ok;
+  if(ok){weights[k]=Math.max(1,(weights[k]||1)-1);playCorrect();}
+  else{weights[k]=(weights[k]||1)+3;playWrong();}
+  saveWeights();
+  const ni=idx+1;if(ni>=deck.length)finish();else{idx=ni;showCard();}
+}
+
+function updateUI(){
+  document.getElementById('s-total').textContent=deck.length;
+  document.getElementById('s-right').textContent=correct;
+  document.getElementById('s-wrong').textContent=wrong;
+  const ac=Object.keys(answered).length;
+  document.getElementById('prog').style.width=(deck.length?Math.round(ac/deck.length*100):0)+'%';
+  document.getElementById('round-badge').textContent=(idx+1)+' / '+deck.length;
+  const weak=Object.entries(weights).filter(([k,w])=>w>=4).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  const row=document.getElementById('weak-row');row.innerHTML='';
+  for(const [k,w] of weak){const s=document.createElement('span');s.className='chip';s.textContent='⚠ '+k;row.appendChild(s)}
+  const wc=Object.values(weights).filter(w=>w>=4).length;
+  document.getElementById('memory-hint').innerHTML=wc>0?'💾 Gespeichert · <span>'+wc+' im Training</span>':'💾 Fortschritt wird gespeichert';
+}
+
+// ── MENU ──
 function renderMenu(){
+  updateMetaBar();
   const grid=document.getElementById('set-grid');grid.innerHTML='';
   for(const [id,s] of Object.entries(SETS)){
     const w=loadWeights(s.storage_key),weak=Object.values(w).filter(v=>v>=4).length,total=Object.keys(w).length;
@@ -196,11 +544,13 @@ function renderMenu(){
     div.innerHTML=`<div class="set-icon">${s.emoji}</div>
       <div class="set-info"><div class="set-title" style="color:${s.color_main}">${s.title}</div>
       <div class="set-meta">${s.cards.length} Aufgaben${weak>0?' · ⚠ '+weak+' im Training':total>0?' · Gut gemacht! ✓':''}</div></div>
-      ${s.badge?'<div class="set-badge">'+s.badge+'</div>':''}<div class="set-arrow">›</div>
+      ${s.badge?'<div class="set-badge">'+s.badge+'</div>':''}
+      <div class="set-arrow">›</div>
       ${total>0?'<div class="set-progress" style="background:'+s.color_main+';width:'+pct+'%"></div>':''}`;
     div.onclick=()=>startSet(id);grid.appendChild(div);
   }
 }
+
 function startSet(id){
   currentSet=SETS[id];weights=loadWeights(currentSet.storage_key);
   idx=0;correct=0;wrong=0;round=1;answered={};deck=buildDeck();
@@ -223,51 +573,18 @@ function startSet(id){
   document.getElementById('screen-app').style.display='block';
   showCard();
 }
+
 function goMenu(){
-  document.getElementById('screen-app').style.display='none';
-  document.getElementById('screen-finish').style.display='none';
+  stopTimer();
+  ['screen-app','screen-finish','screen-settings'].forEach(id=>document.getElementById(id).style.display='none');
   document.getElementById('screen-menu').style.display='block';
   renderMenu();
 }
-function showCard(){
-  if(idx>=deck.length){finish();return}
-  const c=deck[idx];
-  document.getElementById('problem').textContent=c[0]+' '+c[1]+' '+c[2]+' =';
-  document.getElementById('back-eq').textContent=c[0]+' '+c[1]+' '+c[2]+' =';
-  document.getElementById('answer').textContent=c[3];
-  document.getElementById('card-body').classList.remove('flipped');
-  document.getElementById('btn-flip').style.display='';
-  document.getElementById('ans-row').style.display='none';
-  document.getElementById('nl-strip').classList.remove('visible');
-  flipped=false;drawNumberLine(c[0],c[1],c[2],c[3]);updateUI();
-}
-function flipCard(){
-  if(flipped)return;flipped=true;
-  document.getElementById('card-body').classList.add('flipped');
-  setTimeout(()=>{document.getElementById('btn-flip').style.display='none';document.getElementById('ans-row').style.display='flex';document.getElementById('nl-strip').classList.add('visible');},400);
-}
-function navCard(dir){idx=(idx+dir+deck.length)%deck.length;showCard();}
-function grade(ok){
-  const k=cardKey(deck[idx]);
-  if(answered[idx]===undefined){if(ok)correct++;else wrong++;}else{if(answered[idx])correct--;else wrong--;if(ok)correct++;else wrong++;}
-  answered[idx]=ok;
-  if(ok){weights[k]=Math.max(1,(weights[k]||1)-1);}else{weights[k]=(weights[k]||1)+3;}
-  saveWeights();const ni=idx+1;if(ni>=deck.length)finish();else{idx=ni;showCard();}
-}
-function updateUI(){
-  document.getElementById('s-total').textContent=deck.length;
-  document.getElementById('s-right').textContent=correct;
-  document.getElementById('s-wrong').textContent=wrong;
-  const ac=Object.keys(answered).length;
-  document.getElementById('prog').style.width=(deck.length?Math.round(ac/deck.length*100):0)+'%';
-  document.getElementById('round-badge').textContent=(idx+1)+' / '+deck.length;
-  const weak=Object.entries(weights).filter(([k,w])=>w>=4).sort((a,b)=>b[1]-a[1]).slice(0,5);
-  const row=document.getElementById('weak-row');row.innerHTML='';
-  for(const [k,w] of weak){const s=document.createElement('span');s.className='chip';s.textContent='⚠ '+k;row.appendChild(s)}
-  const wc=Object.values(weights).filter(w=>w>=4).length;
-  document.getElementById('memory-hint').innerHTML=wc>0?'💾 Gespeichert · <span>'+wc+' im Training</span>':'💾 Fortschritt wird gespeichert';
-}
+
+// ── FINISH ──
 function finish(){
+  stopTimer();
+  recordRound();
   document.getElementById('screen-app').style.display='none';
   document.getElementById('screen-finish').style.display='flex';
   const tot=correct+wrong,pct=tot?Math.round(correct/tot*100):0;
@@ -276,21 +593,125 @@ function finish(){
   const arc=document.getElementById('ring-arc');
   arc.style.stroke=pct>=80?'#16a34a':pct>=50?'#d97706':'#dc2626';
   setTimeout(()=>{arc.style.transition='stroke-dashoffset 1s ease';arc.style.strokeDashoffset=289-289*pct/100;},100);
-  document.getElementById('finish-emoji').textContent=pct>=80?'🌟':pct>=50?'💪':'🔥';
+  const stars=pct>=90?'⭐⭐⭐':pct>=70?'⭐⭐':pct>=50?'⭐':'';
+  document.getElementById('finish-stars').textContent=stars;
+  document.getElementById('finish-emoji').textContent=pct>=90?'🌟':pct>=70?'😊':pct>=50?'💪':'🔥';
   const weak=Object.entries(weights).filter(([k,w])=>w>=4).sort((a,b)=>b[1]-a[1]).slice(0,8);
   const ws=document.getElementById('weak-section'),wi=document.getElementById('weak-items');
   if(weak.length){ws.style.display='block';wi.innerHTML='';for(const [k,w] of weak){const d=document.createElement('div');d.className='weak-item';d.innerHTML='<span>'+k+'</span><span class="err-badge">'+Math.round(w-1)+'× falsch</span>';wi.appendChild(d)}}
   else ws.style.display='none';
 }
+
 function restart(){
   idx=0;correct=0;wrong=0;round++;answered={};deck=buildDeck();
   document.getElementById('screen-finish').style.display='none';
   document.getElementById('screen-app').style.display='block';
-  const arc=document.getElementById('ring-arc');arc.style.transition='none';arc.style.strokeDashoffset=289;showCard();
+  const arc=document.getElementById('ring-arc');arc.style.transition='none';arc.style.strokeDashoffset=289;
+  showCard();
 }
-function resetProgress(){
-  if(confirm('Lernfortschritt für diesen Satz zurücksetzen?')){weights={};try{localStorage.removeItem(currentSet.storage_key);}catch(e){}restart();}
+
+function resetCurrent(){
+  if(confirm('Lernfortschritt für diesen Satz zurücksetzen?')){
+    weights={};try{localStorage.removeItem(currentSet.storage_key);}catch(e){}restart();
+  }
 }
+
+// ── SETTINGS ──
+function goSettings(){
+  if(getS('pin')){showPinOverlay('unlock',()=>{openSettings();});}
+  else openSettings();
+}
+
+function openSettings(){
+  document.getElementById('screen-menu').style.display='none';
+  document.getElementById('screen-settings').style.display='block';
+  // deck size buttons
+  const ds=getS('deckSize');
+  document.querySelectorAll('#size-btns .btn-opt').forEach(b=>{b.classList.toggle('active',parseInt(b.textContent)===ds);});
+  // timer buttons
+  const ts=getS('timerSecs');
+  document.querySelectorAll('#timer-btns .btn-opt').forEach(b=>{
+    const v=b.textContent==='Aus'?0:parseInt(b.textContent);
+    b.classList.toggle('active',v===ts);
+  });
+  // toggles
+  setToggle('tog-nl',getS('showNL'));
+  setToggle('tog-seq',getS('sequential'));
+  setToggle('tog-both',getS('bothDir'));
+  setToggle('tog-pin',!!getS('pin'));
+  // reset list
+  const list=document.getElementById('reset-list');list.innerHTML='';
+  for(const [id,s] of Object.entries(SETS)){
+    const w=loadWeights(s.storage_key),hasP=Object.keys(w).length>0;
+    const item=document.createElement('div');item.className='reset-item';
+    item.innerHTML=`<div><div class="reset-item-label">${s.emoji} ${s.title}</div>
+      <div class="reset-item-sub">${hasP?'Fortschritt vorhanden':'Kein Fortschritt'}</div></div>
+      <button class="btn-reset-one" onclick="resetOne('${id}')">Zurücksetzen</button>`;
+    list.appendChild(item);
+  }
+}
+
+function setSetting(key,val,btn){
+  setS(key,val);
+  const group=btn.closest('.btn-group');
+  group.querySelectorAll('.btn-opt').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function toggleSetting(key,btn){
+  const newVal=!getS(key);
+  setS(key,newVal);
+  setToggle(btn.id,newVal);
+}
+
+function setToggle(id,on){
+  const el=typeof id==='string'?document.getElementById(id):id;
+  if(on)el.classList.add('on');else el.classList.remove('on');
+}
+
+function resetOne(id){
+  const s=SETS[id];
+  if(confirm('Fortschritt für "'+s.title+'" zurücksetzen?')){
+    try{localStorage.removeItem(s.storage_key);}catch(e){}openSettings();
+  }
+}
+
+function resetAll(){
+  if(confirm('Gesamten Lernfortschritt zurücksetzen?')){
+    for(const s of Object.values(SETS)){try{localStorage.removeItem(s.storage_key);}catch(e){}}
+    openSettings();
+  }
+}
+
+// ── PIN ──
+let pinCallback=null;
+function showPinOverlay(mode,cb){
+  pinCallback=cb;
+  document.getElementById('pin-title').textContent=mode==='set'?'PIN festlegen':mode==='remove'?'PIN eingeben zum Entfernen':'PIN eingeben';
+  document.getElementById('pin-sub').textContent=mode==='set'?'Wähle einen 4-stelligen PIN':'Gib den PIN ein um fortzufahren';
+  document.getElementById('pin-input').value='';
+  document.getElementById('pin-error').textContent='';
+  document.getElementById('pin-overlay').classList.add('show');
+}
+function closePinOverlay(){document.getElementById('pin-overlay').classList.remove('show');pinCallback=null;}
+function confirmPin(){
+  const val=document.getElementById('pin-input').value;
+  if(val.length!==4||isNaN(val)){document.getElementById('pin-error').textContent='Bitte genau 4 Ziffern eingeben.';return;}
+  const stored=getS('pin');
+  if(stored && val!==String(stored)){document.getElementById('pin-error').textContent='Falscher PIN.';return;}
+  closePinOverlay();
+  if(pinCallback)pinCallback(val);
+}
+function togglePin(btn){
+  const hasPIN=!!getS('pin');
+  if(hasPIN){
+    showPinOverlay('remove',()=>{setS('pin',null);setToggle('tog-pin',false);});
+  } else {
+    showPinOverlay('set',(val)=>{setS('pin',val);setToggle('tog-pin',true);});
+  }
+}
+
+// ── INIT ──
 renderMenu();
 </script>
 </body>
