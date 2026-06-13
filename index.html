@@ -39,7 +39,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:'Nu
 #screen-app{display:none;}
 #app-inner{height:100vh;display:flex;flex-direction:column;max-width:520px;margin:0 auto;padding:16px;gap:10px;}
 .hdr{display:flex;align-items:center;gap:10px;}
-.btn-back{background:var(--surface);border:1.5px solid var(--border);border-radius:10px;color:var(--text);font-size:13px;font-weight:700;padding:6px 12px;cursor:pointer;white-space:nowrap;}
+.btn-back{background:#EAF3DE;border:1.5px solid #C0DD97;border-radius:10px;color:#27500A;font-size:14px;font-weight:700;padding:8px 16px;cursor:pointer;white-space:nowrap;}
 .app-title{font-family:'Baloo 2',cursive;font-size:16px;font-weight:800;line-height:1.2;flex:1}
 .round-badge{background:var(--surface);border:1.5px solid var(--border);border-radius:99px;padding:4px 12px;font-size:12px;color:var(--muted);font-weight:600;white-space:nowrap;}
 .stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
@@ -95,11 +95,11 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:'Nu
 .btn-row-finish{display:flex;gap:10px;width:100%}
 .btn-restart{flex:1;padding:16px;border:none;border-radius:14px;color:#fff;font-family:'Nunito',sans-serif;font-size:17px;font-weight:800;cursor:pointer;}
 .btn-reset-fin{padding:16px 14px;background:var(--surface);border:1.5px solid var(--border);border-radius:14px;color:var(--muted);font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
-.btn-back-finish{width:100%;padding:14px;background:var(--surface);border:1.5px solid var(--border);border-radius:14px;color:var(--muted);font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;cursor:pointer;}
+.btn-back-finish{width:100%;padding:16px;background:#EAF3DE;border:1.5px solid #C0DD97;border-radius:14px;color:#27500A;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;cursor:pointer;}
 
 /* ── SETTINGS ── */
 #screen-settings{display:none;padding:24px 16px;max-width:520px;margin:0 auto;}
-.settings-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-top:16px;}
+.settings-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-top:16px;}
 .settings-title{font-family:'Baloo 2',cursive;font-size:24px;font-weight:800;color:#1e293b;}
 .s-section{background:var(--surface);border:1.5px solid var(--border);border-radius:18px;padding:18px 20px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.06);}
 .s-section-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:14px;}
@@ -121,7 +121,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:'Nu
 .reset-item-sub{font-size:11px;color:var(--muted);font-weight:600;}
 .btn-reset-one{padding:5px 12px;border-radius:8px;background:var(--red-bg);border:1px solid #fca5a5;color:var(--red);font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
 .btn-reset-all{width:100%;padding:12px;border-radius:12px;background:var(--red-bg);border:1.5px solid #fca5a5;color:var(--red);font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;cursor:pointer;margin-top:4px;}
-.btn-back-settings{width:100%;padding:14px;background:var(--surface);border:1.5px solid var(--border);border-radius:14px;color:var(--muted);font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;cursor:pointer;margin-top:8px;}
+.btn-back-settings{width:100%;padding:16px;background:#EAF3DE;border:1.5px solid #C0DD97;border-radius:14px;color:#27500A;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;cursor:pointer;margin-top:8px;}
 .pin-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;align-items:center;justify-content:center;}
 .pin-overlay.show{display:flex;}
 .pin-box{background:var(--surface);border-radius:20px;padding:28px 24px;max-width:300px;width:90%;text-align:center;}
@@ -132,6 +132,25 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:'Nu
 .pin-btn{flex:1;padding:11px;border-radius:10px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;cursor:pointer;}
 .pin-confirm{background:#0284c7;border:none;color:#fff;}
 .pin-cancel{background:var(--bg);border:1.5px solid var(--border);color:var(--muted);}
+
+/* ── HELP ── */
+.btn-help{background:#fff;border:1.5px solid #C0DD97;border-radius:99px;padding:6px 12px;display:flex;align-items:center;gap:5px;cursor:pointer;font-size:14px;font-weight:700;color:#27500A;flex-shrink:0;box-shadow:0 1px 3px rgba(0,0,0,.08);}
+.btn-help-icon{font-size:16px;font-weight:900;line-height:1;}
+.btn-help-label{font-size:13px;font-weight:700;}
+.help-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:200;align-items:flex-end;justify-content:center;}
+.help-overlay.show{display:flex;}
+.help-box{background:var(--surface);border-radius:20px 20px 0 0;padding:24px 20px 36px;width:100%;max-width:520px;max-height:85vh;overflow-y:auto;}
+.help-box-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.help-box-title{font-family:'Baloo 2',cursive;font-size:20px;font-weight:800;color:#1e293b;}
+.help-close{background:var(--bg);border:1.5px solid var(--border);border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;color:var(--muted);}
+.help-section{margin-bottom:16px;}
+.help-section-title{font-size:13px;font-weight:700;color:#0284c7;text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px;}
+.help-section p{font-size:14px;color:var(--text);line-height:1.6;margin-bottom:6px;}
+.help-row{display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;}
+.help-icon{font-size:20px;flex-shrink:0;width:28px;text-align:center;}
+.help-row-text{font-size:14px;color:var(--text);line-height:1.5;}
+.help-row-text b{color:#1e293b;}
+hr.help-divider{border:none;border-top:1px solid var(--border);margin:14px 0;}
 </style>
 </head>
 <body>
@@ -142,6 +161,9 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:'Nu
     <div class="menu-title">✏️ Mathe<br>Lernkarten</div>
     <div class="menu-sub">Wähle einen Kartensatz</div>
     <button class="btn-settings" onclick="goSettings()"><span class="btn-settings-icon">⚙️</span><span class="btn-settings-label">Einstellungen</span></button>
+  </div>
+  <div style="display:flex;justify-content:flex-end;margin-bottom:4px;">
+    <button class="btn-help" onclick="showHelp('menu')"><span class="btn-help-icon">?</span><span class="btn-help-label">Hilfe</span></button>
   </div>
   <div class="meta-bar">
     <div class="meta-chip" id="meta-streak">🔥 0 Tage</div>
@@ -157,7 +179,10 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:'Nu
     <div class="hdr">
       <button class="btn-back" onclick="goMenu()">← Zurück</button>
       <div class="app-title" id="app-title"></div>
-      <div class="round-badge" id="round-badge">1 / 10</div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <button class="btn-help" onclick="showHelp('app')"><span class="btn-help-icon">?</span><span class="btn-help-label">Hilfe</span></button>
+        <div class="round-badge" id="round-badge">1 / 10</div>
+      </div>
     </div>
     <div class="stats">
       <div class="stat s-total"><div class="stat-n" id="s-total">0</div><div class="stat-l">Gesamt</div></div>
@@ -201,7 +226,10 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:'Nu
 <!-- FINISH -->
 <div id="screen-finish">
   <div class="finish-emoji" id="finish-emoji">🎉</div>
-  <div class="finish-title" id="finish-title">Runde geschafft!</div>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <div class="finish-title" id="finish-title">Runde geschafft!</div>
+    <button class="btn-help" onclick="showHelp('finish')"><span class="btn-help-icon">?</span><span class="btn-help-label">Hilfe</span></button>
+  </div>
   <div class="stars" id="finish-stars">⭐⭐⭐</div>
   <div class="finish-sub" id="finish-sub"></div>
   <div class="score-ring">
@@ -219,15 +247,16 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:'Nu
     <button class="btn-restart" id="btn-restart" onclick="restart()">Nächste Runde →</button>
     <button class="btn-reset-fin" onclick="resetCurrent()">🗑 Reset</button>
   </div>
-  <button class="btn-back-finish" onclick="goMenu()">← Zurück zur Übersicht</button>
+  <button class="btn-back-finish" onclick="goMenu()"><b>← Zurück zur Übersicht</b></button>
 </div>
 
 <!-- SETTINGS -->
 <div id="screen-settings">
   <div class="settings-header">
     <div class="settings-title">⚙️ Einstellungen</div>
+    <button class="btn-help" onclick="showHelp('settings')"><span class="btn-help-icon">?</span><span class="btn-help-label">Hilfe</span></button>
   </div>
-  <button class="btn-back-settings" onclick="goMenu()">← Zurück zur Übersicht</button>
+  <button class="btn-back-settings" onclick="goMenu()"><b>← Zurück zur Übersicht</b></button>
   <div style="margin-top:14px;">
 
   <div class="s-section">
@@ -295,7 +324,18 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:'Nu
   </div>
 
   </div>
-  <button class="btn-back-settings" onclick="goMenu()">← Zurück zur Übersicht</button>
+  <button class="btn-back-settings" onclick="goMenu()"><b>← Zurück zur Übersicht</b></button>
+</div>
+
+<!-- HELP OVERLAY -->
+<div class="help-overlay" id="help-overlay" onclick="closeHelp(event)">
+  <div class="help-box" id="help-box">
+    <div class="help-box-header">
+      <div class="help-box-title" id="help-title">Hilfe</div>
+      <button class="help-close" onclick="closeHelpBtn()">✕</button>
+    </div>
+    <div id="help-content"></div>
+  </div>
 </div>
 
 <!-- PIN overlay -->
@@ -331,29 +371,34 @@ function setS(k,v){localStorage.setItem('setting_'+k,v);}
 const AudioCtx=window.AudioContext||window.webkitAudioContext;
 let actx=null;
 function getACtx(){if(!actx){try{actx=new AudioCtx();}catch(e){}}return actx;}
-function playNote(freq,start,dur,vol=0.25,type='sine'){
+
+function note(freq,start,dur,vol=0.4,type='sine',attack=0.02){
   try{
-    const ctx=getACtx();if(!ctx)return;
-    const o=ctx.createOscillator(),g=ctx.createGain();
-    o.connect(g);g.connect(ctx.destination);
-    o.type=type;o.frequency.value=freq;
-    g.gain.setValueAtTime(0,ctx.currentTime+start);
-    g.gain.linearRampToValueAtTime(vol,ctx.currentTime+start+0.04);
-    g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+start+dur);
-    o.start(ctx.currentTime+start);
-    o.stop(ctx.currentTime+start+dur+0.05);
+    const c=getACtx();if(!c)return;
+    const o=c.createOscillator(),g=c.createGain();
+    o.connect(g);g.connect(c.destination);
+    o.type=type;o.frequency.setValueAtTime(freq,c.currentTime+start);
+    g.gain.setValueAtTime(0,c.currentTime+start);
+    g.gain.linearRampToValueAtTime(vol,c.currentTime+start+attack);
+    g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+start+dur);
+    o.start(c.currentTime+start);o.stop(c.currentTime+start+dur+0.05);
   }catch(e){}
 }
+
 function playCorrect(){
-  // warm ascending chime: C5 E5 G5
-  playNote(523,0,0.5);
-  playNote(659,0.18,0.5);
-  playNote(784,0.36,0.7);
+  // Glockenspiel: bright bell tones C6 E6 G6 C7
+  note(1047,0,1.2,0.35,'sine');
+  note(1319,0.15,1.0,0.3,'sine');
+  note(1568,0.3,1.0,0.3,'sine');
+  note(2093,0.5,1.4,0.35,'sine');
 }
+
 function playWrong(){
-  // gentle descending: A3 F3
-  playNote(220,0,0.6,'sine',0.2);
-  playNote(174,0.3,0.5,'sine',0.15);
+  // Buzzer: descending sawtooth blats
+  note(180,0,0.15,0.5,'sawtooth');
+  note(160,0.15,0.15,0.45,'sawtooth');
+  note(140,0.3,0.2,0.4,'sawtooth');
+  note(120,0.5,0.4,0.35,'sawtooth');
 }
 
 // ── STATS ──
@@ -709,6 +754,136 @@ function togglePin(btn){
   } else {
     showPinOverlay('set',(val)=>{setS('pin',val);setToggle('tog-pin',true);});
   }
+}
+
+// ── HELP ──
+const HELP = {
+  menu: {
+    title: '📖 Über diese App',
+    html: `
+      <div class="help-section">
+        <div class="help-section-title">Was ist diese App?</div>
+        <p>Mathe Lernkarten ist eine Lern-App für Grundschulkinder. Sie übt Addition und Subtraktion mit Zahlen von 1 bis 20 durch interaktive Karteikarten.</p>
+        <p>Die App merkt sich, welche Aufgaben schwierig sind, und zeigt diese öfter — so wird gezielt geübt, wo es am meisten nötig ist.</p>
+      </div>
+      <hr class="help-divider">
+      <div class="help-section">
+        <div class="help-section-title">Die Kartensätze</div>
+        <div class="help-row"><div class="help-icon">❤️</div><div class="help-row-text"><b>Verliebte Zahlen:</b> Welche Zahl fehlt, um 10 zu erreichen? z.B. 3 + ? = 10</div></div>
+        <div class="help-row"><div class="help-icon">➕</div><div class="help-row-text"><b>Plus – Ergebnis unter 10:</b> Einfache Additionen mit Ergebnis kleiner als 10</div></div>
+        <div class="help-row"><div class="help-icon">➕</div><div class="help-row-text"><b>Plus – Ergebnis 10–20 (1–9):</b> Beide Zahlen einstellig, Ergebnis 10 bis 20</div></div>
+        <div class="help-row"><div class="help-icon">➕</div><div class="help-row-text"><b>Plus – Ergebnis 10–20 (10+):</b> Mindestens eine Zahl ist 10 oder größer</div></div>
+        <div class="help-row"><div class="help-icon">➖</div><div class="help-row-text"><b>Minus – Summanden unter 10:</b> Subtraktionen mit Zahlen kleiner als 10</div></div>
+        <div class="help-row"><div class="help-icon">➖</div><div class="help-row-text"><b>Minus – Summanden 10–20:</b> Subtraktionen mit größeren Zahlen</div></div>
+      </div>
+      <hr class="help-divider">
+      <div class="help-section">
+        <div class="help-section-title">Statistik auf der Startseite</div>
+        <div class="help-row"><div class="help-icon">🔥</div><div class="help-row-text"><b>Tage:</b> Wie viele Tage hintereinander wurde geübt</div></div>
+        <div class="help-row"><div class="help-icon">⭐</div><div class="help-row-text"><b>Runden:</b> Gesamtzahl abgeschlossener Runden</div></div>
+        <div class="help-row"><div class="help-icon">⚙️</div><div class="help-row-text"><b>Einstellungen:</b> Rundensize, Zeitlimit, Zahlenstrahl und mehr anpassen</div></div>
+      </div>
+      <hr class="help-divider">
+      <div class="help-section">
+        <div class="help-section-title">Lernfortschritt</div>
+        <p>Der Fortschritt wird automatisch auf diesem Gerät gespeichert und bleibt erhalten, auch wenn die App geschlossen oder das Gerät neu gestartet wird.</p>
+        <p>Der Balken unter jedem Kartensatz zeigt, wie gut dieser Satz bereits beherrscht wird.</p>
+      </div>`
+  },
+  app: {
+    title: '🃏 Karten üben',
+    html: `
+      <div class="help-section">
+        <div class="help-section-title">So funktioniert eine Runde</div>
+        <div class="help-row"><div class="help-icon">1️⃣</div><div class="help-row-text">Eine Rechenaufgabe wird auf der Vorderseite gezeigt — z.B. <b>7 + 5 =</b></div></div>
+        <div class="help-row"><div class="help-icon">2️⃣</div><div class="help-row-text">Überlege die Antwort im Kopf, dann tippe auf die Karte oder auf <b>Antwort zeigen</b> um umzudrehen</div></div>
+        <div class="help-row"><div class="help-icon">3️⃣</div><div class="help-row-text">Auf der Rückseite siehst du die Lösung und einen Zahlenstrahl der den Rechenweg zeigt</div></div>
+        <div class="help-row"><div class="help-icon">4️⃣</div><div class="help-row-text">Tippe <b>✓ Richtig</b> oder <b>✗ Falsch</b> — ehrlich sein hilft beim Lernen!</div></div>
+      </div>
+      <hr class="help-divider">
+      <div class="help-section">
+        <div class="help-section-title">Die Anzeigen oben</div>
+        <div class="help-row"><div class="help-icon">📊</div><div class="help-row-text"><b>Gesamt / Richtig / Falsch:</b> Ergebnisse der aktuellen Runde</div></div>
+        <div class="help-row"><div class="help-icon">▬</div><div class="help-row-text"><b>Fortschrittsbalken:</b> Wie viele Karten der Runde bereits beantwortet wurden</div></div>
+        <div class="help-row"><div class="help-icon">🔢</div><div class="help-row-text"><b>Countdown:</b> Wenn ein Zeitlimit eingestellt ist, zählt die Zahl oben rechts auf der Karte herunter</div></div>
+      </div>
+      <hr class="help-divider">
+      <div class="help-section">
+        <div class="help-section-title">Pfeile und Navigation</div>
+        <div class="help-row"><div class="help-icon">◀▶</div><div class="help-row-text">Die Pfeile links und rechts auf der Karte blättern vor und zurück — ohne die Aufgabe zu bewerten</div></div>
+      </div>
+      <hr class="help-divider">
+      <div class="help-section">
+        <div class="help-section-title">Der Zahlenstrahl</div>
+        <p>Nach dem Umdrehen erscheint ein Zahlenstrahl von 0 bis 20. Die blauen Bögen zeigen die Rechenschritte von der Ausgangszahl bis zur Lösung — so wird der Rechenweg sichtbar.</p>
+      </div>`
+  },
+  finish: {
+    title: '🏁 Rundenauswertung',
+    html: `
+      <div class="help-section">
+        <div class="help-section-title">Dein Ergebnis</div>
+        <div class="help-row"><div class="help-icon">⭐</div><div class="help-row-text"><b>Sterne:</b> ⭐⭐⭐ ab 90%, ⭐⭐ ab 70%, ⭐ ab 50%</div></div>
+        <div class="help-row"><div class="help-icon">💯</div><div class="help-row-text"><b>Prozentzahl:</b> Anteil der richtig beantworteten Karten</div></div>
+        <div class="help-row"><div class="help-icon">⚠️</div><div class="help-row-text"><b>Noch üben:</b> Aufgaben die mehrfach falsch beantwortet wurden — in der nächsten Runde öfter dran</div></div>
+      </div>
+      <hr class="help-divider">
+      <div class="help-section">
+        <div class="help-section-title">Adaptives Lernen</div>
+        <p>Falsch beantwortete Karten bekommen ein höheres Gewicht. In der nächsten Runde tauchen sie deshalb häufiger auf — so werden Schwächen automatisch gezielt geübt.</p>
+        <p>Mit jeder richtigen Antwort sinkt das Gewicht einer Karte wieder, bis sie gleichwertig zu den anderen ist.</p>
+      </div>
+      <hr class="help-divider">
+      <div class="help-section">
+        <div class="help-section-title">Buttons</div>
+        <div class="help-row"><div class="help-icon">▶</div><div class="help-row-text"><b>Nächste Runde:</b> Startet eine neue Runde mit denselben Karten — schwierige Karten kommen öfter vor</div></div>
+        <div class="help-row"><div class="help-icon">🗑</div><div class="help-row-text"><b>Reset:</b> Setzt den Lernfortschritt für diesen Kartensatz zurück</div></div>
+      </div>`
+  },
+  settings: {
+    title: '⚙️ Einstellungen',
+    html: `
+      <div class="help-section">
+        <div class="help-section-title">Karten pro Runde</div>
+        <p>Legt fest, wie viele Karten in einer Runde gezeigt werden. Standard ist 10. Kleinere Runden (5) sind gut für kurze Übungen zwischendurch, größere (20–30) für intensiveres Lernen.</p>
+      </div>
+      <hr class="help-divider">
+      <div class="help-section">
+        <div class="help-section-title">Zeitlimit pro Karte</div>
+        <p>Wenn ein Zeitlimit eingestellt ist, zählt die Zahl oben rechts auf der Karte herunter. Läuft die Zeit ab, wird die Karte automatisch umgedreht und nur <b>✗ Falsch</b> kann gedrückt werden.</p>
+        <p><b>Aus</b> bedeutet kein Zeitlimit — die Karte bleibt so lange offen wie nötig.</p>
+      </div>
+      <hr class="help-divider">
+      <div class="help-section">
+        <div class="help-section-title">Weitere Optionen</div>
+        <div class="help-row"><div class="help-icon">〰️</div><div class="help-row-text"><b>Zahlenstrahl:</b> Blendet den Zahlenstrahl auf der Rückseite ein oder aus</div></div>
+        <div class="help-row"><div class="help-icon">🔢</div><div class="help-row-text"><b>Sequenziell:</b> Karten immer in gleicher Reihenfolge statt zufällig</div></div>
+        <div class="help-row"><div class="help-icon">↔️</div><div class="help-row-text"><b>Beide Richtungen:</b> Bei Additionsaufgaben auch „? + 3 = 7" fragen, nicht nur „3 + 4 ="</div></div>
+      </div>
+      <hr class="help-divider">
+      <div class="help-section">
+        <div class="help-section-title">PIN-Schutz</div>
+        <p>Schützt die Einstellungen mit einem 4-stelligen PIN. So können Kinder die Einstellungen nicht versehentlich verändern. Der PIN muss beim Öffnen der Einstellungen eingegeben werden.</p>
+      </div>
+      <hr class="help-divider">
+      <div class="help-section">
+        <div class="help-section-title">Lernfortschritt zurücksetzen</div>
+        <p>Setzt die gespeicherten Lerngewichte für einzelne oder alle Kartensätze zurück. Danach werden alle Karten wieder gleichmäßig häufig gezeigt.</p>
+      </div>`
+  }
+};
+
+function showHelp(page){
+  const h=HELP[page];
+  document.getElementById('help-title').textContent=h.title;
+  document.getElementById('help-content').innerHTML=h.html;
+  document.getElementById('help-overlay').classList.add('show');
+}
+function closeHelp(e){
+  if(e.target===document.getElementById('help-overlay')) closeHelpBtn();
+}
+function closeHelpBtn(){
+  document.getElementById('help-overlay').classList.remove('show');
 }
 
 // ── INIT ──
