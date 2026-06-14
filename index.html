@@ -466,6 +466,13 @@ function drawNumberLine(a,op,b,r){
   const svg=document.getElementById('nl-svg');
   if(!getS('showNL')){svg.innerHTML='';return;}
   const ACC=currentSet.color_main,ACC_M=currentSet.color_muted,ACC_D=currentSet.color_dark;
+
+  // Two-hop Zehnerstrategie for set2a (both operands 1-9, result > 10)
+  if(currentSet.id==='set2a' && op==='+' && a>=1 && a<=9 && b>=1 && b<=9 && r>10){
+    drawTwoHopNumberLine(a,b,r,ACC,ACC_M,ACC_D,svg);
+    return;
+  }
+
   const x0=10,xN=322,y=44,bigH=8,step=(xN-x0)/20,start=a,end=r;let out='';
   out+=`<line x1="${x0}" y1="${y}" x2="${xN+5}" y2="${y}" stroke="${ACC_D}" stroke-width="1.5" stroke-linecap="round"/>`;
   out+=`<polygon points="${xN+5},${y-4} ${xN+13},${y} ${xN+5},${y+4}" fill="${ACC_D}"/>`;
@@ -478,6 +485,48 @@ function drawNumberLine(a,op,b,r){
   else{for(let n=start;n>end;n--){const x1=x0+n*step,x2=x0+(n-1)*step,mx=(x1+x2)/2;out+=`<path d="M${x1},${y} Q${mx},${y-24} ${x2},${y}" fill="none" stroke="${ACC}" stroke-width="2.5" stroke-linecap="round"/>`;}}
   out+=`<circle cx="${x0+start*step}" cy="${y}" r="5" fill="${ACC}"/>`;
   out+=`<circle cx="${x0+end*step}" cy="${y}" r="5" fill="${ACC}"/>`;
+  svg.innerHTML=out;
+}
+
+function drawTwoHopNumberLine(a,b,r,ACC,ACC_M,ACC_D,svg){
+  // e.g. 9+5=14: hop1 = 9->10 (+1), hop2 = 10->14 (+4)
+  const hop1=10-a, hop2=b-hop1;
+  const GREEN='#16a34a';
+  const minN=Math.max(0,a-1), maxN=Math.min(20,r+1);
+  const range=maxN-minN;
+  const x0=10,xN=330,y=54,bigH=9,step=(xN-x0)/range;
+  let out='';
+  // axis
+  out+=`<line x1="${x0}" y1="${y}" x2="${xN+5}" y2="${y}" stroke="${ACC_D}" stroke-width="1.5" stroke-linecap="round"/>`;
+  out+=`<polygon points="${xN+5},${y-4} ${xN+13},${y} ${xN+5},${y+4}" fill="${ACC_D}"/>`;
+  // ticks and labels
+  for(let n=minN;n<=maxN;n++){
+    const x=x0+(n-minN)*step;
+    const isTen=(n===10), isKey=(n===a||n===10||n===r);
+    const color=isKey?ACC_D:ACC_M;
+    const th=isTen?bigH+3:bigH, tw=isTen?2.5:1.5;
+    out+=`<line x1="${x}" y1="${y-th}" x2="${x}" y2="${y+th}" stroke="${color}" stroke-width="${tw}" stroke-linecap="round"/>`;
+    const fs=isKey?13:11, fw=isKey?'bold':'normal';
+    out+=`<text x="${x}" y="${y+th+15}" text-anchor="middle" font-size="${fs}" font-weight="${fw}" fill="${color}" font-family="sans-serif">${n}</text>`;
+  }
+  // hop 1: a -> 10 (accent color)
+  {
+    const x1=x0+(a-minN)*step, x2=x0+(10-minN)*step, mx=(x1+x2)/2;
+    const arcH=Math.max(18,(x2-x1)*0.6);
+    out+=`<path d="M${x1},${y} Q${mx},${y-arcH} ${x2},${y}" fill="none" stroke="${ACC}" stroke-width="3" stroke-linecap="round"/>`;
+    out+=`<text x="${mx}" y="${y-arcH-5}" text-anchor="middle" font-size="12" font-weight="bold" fill="${ACC}" font-family="sans-serif">+${hop1}</text>`;
+  }
+  // hop 2: 10 -> r (green)
+  {
+    const x1=x0+(10-minN)*step, x2=x0+(r-minN)*step, mx=(x1+x2)/2;
+    const arcH=Math.max(24,(x2-x1)*0.55);
+    out+=`<path d="M${x1},${y} Q${mx},${y-arcH} ${x2},${y}" fill="none" stroke="${GREEN}" stroke-width="3" stroke-linecap="round"/>`;
+    out+=`<text x="${mx}" y="${y-arcH-5}" text-anchor="middle" font-size="12" font-weight="bold" fill="${GREEN}" font-family="sans-serif">+${hop2}</text>`;
+  }
+  // dots: start, 10 (highlighted), end
+  out+=`<circle cx="${x0+(a-minN)*step}" cy="${y}" r="6" fill="${ACC}"/>`;
+  out+=`<circle cx="${x0+(10-minN)*step}" cy="${y}" r="7" fill="${ACC_D}" stroke="white" stroke-width="2"/>`;
+  out+=`<circle cx="${x0+(r-minN)*step}" cy="${y}" r="6" fill="${GREEN}"/>`;
   svg.innerHTML=out;
 }
 
