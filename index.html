@@ -420,7 +420,7 @@ hr.help-divider{border:none;border-top:1px solid var(--border);margin:14px 0;}
   <div class="s-section">
     <div class="s-section-title">Lernfortschritt zurücksetzen</div>
     <div class="reset-list" id="reset-list"></div>
-    <button class="btn-reset-all" onclick="resetAll()">🗑 Alle zurücksetzen</button>
+    <button class="btn-reset-all" id="btn-reset-all" onclick="resetAll()">🗑 Alle zurücksetzen</button>
   </div>
 
   </div>
@@ -773,10 +773,20 @@ function drawNumberLine(a,op,b,r){
     out+=`<line x1="${x}" y1="${y-bigH}" x2="${x}" y2="${y+bigH}" stroke="${color}" stroke-width="1.5" stroke-linecap="round"/>`;
     out+=`<text x="${x}" y="${y+bigH+14}" text-anchor="middle" font-size="11" fill="${color}" font-family="sans-serif">${n}</text>`;
   }
-  if(op==='+'){for(let n=start;n<end;n++){const x1=x0+n*step,x2=x0+(n+1)*step,mx=(x1+x2)/2;out+=`<path d="M${x1},${y} Q${mx},${y-24} ${x2},${y}" fill="none" stroke="${ACC}" stroke-width="2.5" stroke-linecap="round"/>`;}}
-  else{for(let n=start;n>end;n--){const x1=x0+n*step,x2=x0+(n-1)*step,mx=(x1+x2)/2;out+=`<path d="M${x1},${y} Q${mx},${y-24} ${x2},${y}" fill="none" stroke="${ACC}" stroke-width="2.5" stroke-linecap="round"/>`;}}
-  out+=`<circle cx="${x0+start*step}" cy="${y}" r="5" fill="${ACC}"/>`;
-  out+=`<circle cx="${x0+end*step}" cy="${y}" r="5" fill="${ACC}"/>`;
+  // Single arc from start to end
+  {
+    const x1=x0+start*step, x2=x0+end*step, mx=(x1+x2)/2;
+    const span=Math.abs(x2-x1), arcH=Math.max(20, span*0.5);
+    out+=`<path d="M${x1},${y} Q${mx},${y-arcH} ${x2},${y}" fill="none" stroke="${ACC}" stroke-width="2.5" stroke-linecap="round"/>`;
+  }
+  // Green intermediate dots (smaller than endpoints)
+  const lo=Math.min(start,end), hi=Math.max(start,end);
+  for(let n=lo+1;n<hi;n++){
+    out+=`<circle cx="${x0+n*step}" cy="${y}" r="5" fill="#639922" stroke="white" stroke-width="1.5"/>`;
+  }
+  // Blue endpoint dots (larger)
+  out+=`<circle cx="${x0+start*step}" cy="${y}" r="7" fill="${ACC}" stroke="white" stroke-width="2"/>`;
+  out+=`<circle cx="${x0+end*step}" cy="${y}" r="7" fill="${ACC}" stroke="white" stroke-width="2"/>`;
   svg.innerHTML=out;
 }
 
@@ -1002,9 +1012,14 @@ function restart(){
 }
 
 function resetCurrent(){
-  if(confirm('Lernfortschritt für diesen Satz zurücksetzen?')){
-    weights={};try{localStorage.removeItem(userKey(currentSet.storage_key));}catch(e){}restart();
+  const btn=document.querySelector('.btn-reset-fin');
+  if(btn&&btn.dataset.confirm!=='1'){
+    btn.dataset.confirm='1';
+    btn.textContent='⚠️ Sicher?';
+    setTimeout(()=>{btn.dataset.confirm='';btn.textContent='🗑 Reset';},3000);
+    return;
   }
+  weights={};try{localStorage.removeItem(userKey(currentSet.storage_key));}catch(e){}restart();
 }
 
 // ── SETTINGS ──
@@ -1036,7 +1051,7 @@ function openSettings(){
   const list=document.getElementById('reset-list');list.innerHTML='';
   for(const [id,s] of Object.entries(SETS)){
     const w=loadWeights(s.storage_key),hasP=Object.keys(w).length>0;
-    const item=document.createElement('div');item.className='reset-item';
+    const item=document.createElement('div');item.className='reset-item';item.dataset.resetId=id;
     item.innerHTML=`<div><div class="reset-item-label">${s.emoji} ${s.title}</div>
       <div class="reset-item-sub">${hasP?'Fortschritt vorhanden':'Kein Fortschritt'}</div></div>
       <button class="btn-reset-one" onclick="resetOne('${id}')">Zurücksetzen</button>`;
@@ -1064,16 +1079,34 @@ function setToggle(id,on){
 
 function resetOne(id){
   const s=SETS[id];
-  if(confirm('Fortschritt für "'+s.title+'" zurücksetzen?')){
-    try{localStorage.removeItem(userKey(s.storage_key));}catch(e){}openSettings();
-  }
+  const item=document.querySelector(`[data-reset-id="${id}"]`);
+  if(!item)return;
+  item.innerHTML=`<div><div class="reset-item-label">${s.emoji} ${s.title}</div>
+    <div class="reset-item-sub" style="color:var(--red)">Wirklich zurücksetzen?</div></div>
+    <div style="display:flex;gap:6px">
+      <button class="btn-reset-one" style="background:var(--red-bg);border-color:#fca5a5;color:var(--red)" onclick="resetOneConfirm('${id}')">Ja</button>
+      <button class="btn-reset-one" style="background:var(--surface);border-color:var(--border);color:var(--muted)" onclick="openSettings()">Nein</button>
+    </div>`;
+}
+
+function resetOneConfirm(id){
+  const s=SETS[id];
+  try{localStorage.removeItem(userKey(s.storage_key));}catch(e){}
+  openSettings();
 }
 
 function resetAll(){
-  if(confirm('Gesamten Lernfortschritt zurücksetzen?')){
-    for(const s of Object.values(SETS)){try{localStorage.removeItem(userKey(s.storage_key));}catch(e){}}
-    openSettings();
+  const btn=document.getElementById('btn-reset-all');
+  if(btn&&btn.dataset.confirm!=='1'){
+    btn.dataset.confirm='1';
+    btn.textContent='⚠️ Sicher? Nochmal tippen zum Bestätigen';
+    btn.style.opacity='0.8';
+    setTimeout(()=>{btn.dataset.confirm='';btn.textContent='🗑 Alle zurücksetzen';btn.style.opacity='';},3000);
+    return;
   }
+  if(btn){btn.dataset.confirm='';btn.textContent='🗑 Alle zurücksetzen';btn.style.opacity='';}
+  for(const s of Object.values(SETS)){try{localStorage.removeItem(userKey(s.storage_key));}catch(e){}}
+  openSettings();
 }
 
 // ── PIN ──
