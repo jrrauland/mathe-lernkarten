@@ -151,16 +151,110 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:'Nu
 .help-row-text{font-size:14px;color:var(--text);line-height:1.5;}
 .help-row-text b{color:#1e293b;}
 hr.help-divider{border:none;border-top:1px solid var(--border);margin:14px 0;}
+
+/* ── PROFILES ── */
+#screen-profiles{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:24px 16px;background:var(--bg);}
+.profiles-title{font-family:'Baloo 2',cursive;font-size:28px;font-weight:800;color:#1e293b;text-align:center;margin-bottom:6px;}
+.profiles-sub{font-size:14px;color:var(--muted);font-weight:600;text-align:center;margin-bottom:28px;}
+.profiles-grid{display:flex;flex-direction:column;gap:12px;width:100%;max-width:360px;}
+.profile-tile{background:var(--surface);border-radius:20px;padding:18px 22px;display:flex;align-items:center;gap:16px;cursor:pointer;border:2px solid var(--border);transition:transform .15s,border-color .15s;box-shadow:0 2px 8px rgba(0,0,0,.07);}
+.profile-tile:active{transform:scale(.97)}
+.profile-avatar{font-size:40px;line-height:1;flex-shrink:0;width:52px;height:52px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--bg);}
+.profile-name{font-family:'Baloo 2',cursive;font-size:20px;font-weight:800;color:#1e293b;flex:1;}
+.profile-meta{font-size:12px;color:var(--muted);font-weight:600;margin-top:2px;}
+.profile-arrow{font-size:22px;color:var(--muted);}
+.btn-add-profile{width:100%;max-width:360px;margin-top:8px;padding:16px;border-radius:18px;border:2px dashed var(--border);background:transparent;color:var(--muted);font-family:'Nunito',sans-serif;font-size:16px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;}
+.btn-add-profile:active{background:var(--bg);}
+
+/* ── PROFILE CREATION OVERLAY ── */
+.profile-create-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:150;align-items:center;justify-content:center;}
+.profile-create-overlay.show{display:flex;}
+.profile-create-box{background:var(--surface);border-radius:24px;padding:28px 24px;max-width:340px;width:90%;text-align:center;}
+.profile-create-title{font-family:'Baloo 2',cursive;font-size:22px;font-weight:800;color:#1e293b;margin-bottom:6px;}
+.profile-create-sub{font-size:13px;color:var(--muted);margin-bottom:18px;}
+.avatar-picker{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:18px;}
+.avatar-opt{font-size:28px;width:46px;height:46px;border-radius:12px;border:2px solid var(--border);background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .15s;}
+.avatar-opt.selected{border-color:#0284c7;background:#e0f2fe;}
+.profile-name-input{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:12px;font-size:18px;font-family:'Nunito',sans-serif;font-weight:700;margin-bottom:14px;color:#1e293b;}
+.profile-create-btns{display:flex;gap:10px;}
+.btn-create-cancel{flex:1;padding:13px;border-radius:12px;background:var(--bg);border:1.5px solid var(--border);color:var(--muted);font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;cursor:pointer;}
+.btn-create-ok{flex:1;padding:13px;border-radius:12px;background:#0284c7;border:none;color:#fff;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;cursor:pointer;}
+
+/* ── ACTIVE USER CHIP on menu ── */
+.user-chip{display:flex;align-items:center;gap:6px;background:var(--surface);border:1.5px solid var(--border);border-radius:99px;padding:5px 12px 5px 8px;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.07);}
+.user-chip-avatar{font-size:18px;line-height:1;}
+.user-chip-name{font-size:13px;font-weight:700;color:#1e293b;max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.user-chip-switch{font-size:10px;color:var(--muted);font-weight:700;margin-left:2px;}
+
+/* ── SETTINGS: profile management ── */
+.profile-manage-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);}
+.profile-manage-item:last-child{border:none;}
+.profile-manage-avatar{font-size:24px;width:36px;text-align:center;}
+.profile-manage-name{flex:1;font-size:14px;font-weight:700;color:var(--text);}
+.btn-delete-profile{padding:5px 12px;border-radius:8px;background:var(--red-bg);border:1px solid #fca5a5;color:var(--red);font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+
+/* ── CONFIRM OVERLAY ── */
+.confirm-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300;align-items:center;justify-content:center;}
+.confirm-overlay.show{display:flex;}
+.confirm-box{background:var(--surface);border-radius:20px;padding:28px 24px;max-width:320px;width:90%;text-align:center;}
+.confirm-title{font-family:'Baloo 2',cursive;font-size:20px;font-weight:800;color:#1e293b;margin-bottom:10px;}
+.confirm-text{font-size:14px;color:var(--muted);line-height:1.5;margin-bottom:20px;}
+.confirm-btns{display:flex;gap:10px;}
+.btn-confirm-cancel{flex:1;padding:13px;border-radius:12px;background:var(--bg);border:1.5px solid var(--border);color:var(--muted);font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;cursor:pointer;}
+.btn-confirm-ok{flex:1;padding:13px;border-radius:12px;background:var(--red);border:none;color:#fff;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;cursor:pointer;}
 </style>
 </head>
 <body>
+
+
+<!-- PROFILES -->
+<div id="screen-profiles">
+  <div class="profiles-title">✏️ Mathe Lernkarten</div>
+  <div class="profiles-sub">Wer übt heute?</div>
+  <div class="profiles-grid" id="profiles-grid"></div>
+  <button class="btn-add-profile" onclick="showCreateProfile()">＋ Neues Profil anlegen</button>
+</div>
+
+<!-- PROFILE CREATION OVERLAY -->
+<div class="profile-create-overlay" id="profile-create-overlay">
+  <div class="profile-create-box">
+    <div class="profile-create-title">Neues Profil</div>
+    <div class="profile-create-sub">Wähle ein Emoji und gib einen Namen ein</div>
+    <div class="avatar-picker" id="avatar-picker"></div>
+    <input class="profile-name-input" id="profile-name-input" type="text" maxlength="20" placeholder="Name eingeben…"/>
+    <div class="profile-create-btns">
+      <button class="btn-create-cancel" onclick="closeCreateProfile()">Abbrechen</button>
+      <button class="btn-create-ok" onclick="confirmCreateProfile()">Erstellen</button>
+    </div>
+    <div id="profile-create-error" style="color:#dc2626;font-size:12px;margin-top:8px;"></div>
+  </div>
+</div>
+
+<!-- CONFIRM OVERLAY -->
+<div class="confirm-overlay" id="confirm-overlay">
+  <div class="confirm-box">
+    <div class="confirm-title" id="confirm-title">Sicher?</div>
+    <div class="confirm-text" id="confirm-text"></div>
+    <div class="confirm-btns">
+      <button class="btn-confirm-cancel" onclick="closeConfirm()">Abbrechen</button>
+      <button class="btn-confirm-ok" id="btn-confirm-ok">Löschen</button>
+    </div>
+  </div>
+</div>
 
 <!-- MENU -->
 <div id="screen-menu">
   <div class="menu-header">
     <div class="menu-title">✏️ Mathe<br>Lernkarten</div>
-    <div class="menu-sub">Wähle einen Kartensatz</div>
+    <div class="menu-sub" id="menu-sub-deck">Wähle einen Kartensatz</div>
     <button class="btn-settings" onclick="goSettings()"><span class="btn-settings-icon">⚙️</span><span class="btn-settings-label">Einstellungen</span></button>
+  </div>
+  <div style="display:flex;justify-content:flex-start;margin-bottom:4px;margin-top:4px;">
+    <div class="user-chip" onclick="switchUser()" id="user-chip">
+      <span class="user-chip-avatar" id="user-chip-avatar"></span>
+      <span class="user-chip-name" id="user-chip-name"></span>
+      <span class="user-chip-switch">⇄</span>
+    </div>
   </div>
   <div style="display:flex;justify-content:flex-end;margin-bottom:4px;">
     <button class="btn-help" onclick="showHelp('menu')"><span class="btn-help-icon">?</span><span class="btn-help-label">Hilfe</span></button>
@@ -317,6 +411,12 @@ hr.help-divider{border:none;border-top:1px solid var(--border);margin:14px 0;}
     </div>
   </div>
 
+  <div class="s-section" id="profile-manage-section">
+    <div class="s-section-title">Profile verwalten</div>
+    <div id="profile-manage-list"></div>
+    <button class="btn-add-profile" style="margin-top:10px;border-radius:12px;" onclick="showCreateProfile()">＋ Neues Profil anlegen</button>
+  </div>
+
   <div class="s-section">
     <div class="s-section-title">Lernfortschritt zurücksetzen</div>
     <div class="reset-list" id="reset-list"></div>
@@ -355,17 +455,209 @@ hr.help-divider{border:none;border-top:1px solid var(--border);margin:14px 0;}
 <script>
 const SETS = {"set0": {"id": "set0", "title": "Verliebte Zahlen (+10)", "emoji": "❤️", "color_main": "#e11d48", "color_bg": "#fff1f2", "color_border": "#fda4af", "color_light": "#fecdd3", "color_dark": "#881337", "color_muted": "#fda4af", "storage_key": "weights_set0", "op_label": "Addition", "badge": null, "cards": [[1, "+", 9, 10], [2, "+", 8, 10], [3, "+", 7, 10], [4, "+", 6, 10], [5, "+", 5, 10], [6, "+", 4, 10], [7, "+", 3, 10], [8, "+", 2, 10], [9, "+", 1, 10]]}, "set1": {"id": "set1", "title": "Plus – Ergebnis unter 10", "emoji": "➕", "color_main": "#0284c7", "color_bg": "#e0f2fe", "color_border": "#7dd3fc", "color_light": "#bae6fd", "color_dark": "#0369a1", "color_muted": "#7dd3fc", "storage_key": "weights_set1", "op_label": "Addition", "badge": null, "cards": [[1, "+", 1, 2], [1, "+", 2, 3], [1, "+", 3, 4], [1, "+", 4, 5], [1, "+", 5, 6], [1, "+", 6, 7], [1, "+", 7, 8], [1, "+", 8, 9], [2, "+", 1, 3], [2, "+", 2, 4], [2, "+", 3, 5], [2, "+", 4, 6], [2, "+", 5, 7], [2, "+", 6, 8], [2, "+", 7, 9], [3, "+", 1, 4], [3, "+", 2, 5], [3, "+", 3, 6], [3, "+", 4, 7], [3, "+", 5, 8], [3, "+", 6, 9], [4, "+", 1, 5], [4, "+", 2, 6], [4, "+", 3, 7], [4, "+", 4, 8], [4, "+", 5, 9], [5, "+", 1, 6], [5, "+", 2, 7], [5, "+", 3, 8], [5, "+", 4, 9], [6, "+", 1, 7], [6, "+", 2, 8], [6, "+", 3, 9], [7, "+", 1, 8], [7, "+", 2, 9], [8, "+", 1, 9]]}, "set2a": {"id": "set2a", "title": "Plus – Ergebnis 10–20 (1–9)", "emoji": "➕", "color_main": "#4338ca", "color_bg": "#e0e7ff", "color_border": "#a5b4fc", "color_light": "#c7d2fe", "color_dark": "#1e1b4b", "color_muted": "#a5b4fc", "storage_key": "weights_set2a", "op_label": "Addition", "badge": "🏋️", "cards": [[1, "+", 9, 10], [2, "+", 8, 10], [2, "+", 9, 11], [3, "+", 7, 10], [3, "+", 8, 11], [3, "+", 9, 12], [4, "+", 6, 10], [4, "+", 7, 11], [4, "+", 8, 12], [4, "+", 9, 13], [5, "+", 5, 10], [5, "+", 6, 11], [5, "+", 7, 12], [5, "+", 8, 13], [5, "+", 9, 14], [6, "+", 4, 10], [6, "+", 5, 11], [6, "+", 6, 12], [6, "+", 7, 13], [6, "+", 8, 14], [6, "+", 9, 15], [7, "+", 3, 10], [7, "+", 4, 11], [7, "+", 5, 12], [7, "+", 6, 13], [7, "+", 7, 14], [7, "+", 8, 15], [7, "+", 9, 16], [8, "+", 2, 10], [8, "+", 3, 11], [8, "+", 4, 12], [8, "+", 5, 13], [8, "+", 6, 14], [8, "+", 7, 15], [8, "+", 8, 16], [8, "+", 9, 17], [9, "+", 1, 10], [9, "+", 2, 11], [9, "+", 3, 12], [9, "+", 4, 13], [9, "+", 5, 14], [9, "+", 6, 15], [9, "+", 7, 16], [9, "+", 8, 17], [9, "+", 9, 18]]}, "set2b": {"id": "set2b", "title": "Plus – Ergebnis 10–20 (10+)", "emoji": "➕", "color_main": "#0e7490", "color_bg": "#e0f7fa", "color_border": "#67e8f9", "color_light": "#a5f3fc", "color_dark": "#083344", "color_muted": "#67e8f9", "storage_key": "weights_set2b", "op_label": "Addition", "badge": "🪶", "cards": [[1, "+", 10, 11], [1, "+", 11, 12], [1, "+", 12, 13], [1, "+", 13, 14], [1, "+", 14, 15], [1, "+", 15, 16], [1, "+", 16, 17], [1, "+", 17, 18], [1, "+", 18, 19], [1, "+", 19, 20], [2, "+", 10, 12], [2, "+", 11, 13], [2, "+", 12, 14], [2, "+", 13, 15], [2, "+", 14, 16], [2, "+", 15, 17], [2, "+", 16, 18], [2, "+", 17, 19], [2, "+", 18, 20], [3, "+", 10, 13], [3, "+", 11, 14], [3, "+", 12, 15], [3, "+", 13, 16], [3, "+", 14, 17], [3, "+", 15, 18], [3, "+", 16, 19], [3, "+", 17, 20], [4, "+", 10, 14], [4, "+", 11, 15], [4, "+", 12, 16], [4, "+", 13, 17], [4, "+", 14, 18], [4, "+", 15, 19], [4, "+", 16, 20], [5, "+", 10, 15], [5, "+", 11, 16], [5, "+", 12, 17], [5, "+", 13, 18], [5, "+", 14, 19], [5, "+", 15, 20], [6, "+", 10, 16], [6, "+", 11, 17], [6, "+", 12, 18], [6, "+", 13, 19], [6, "+", 14, 20], [7, "+", 10, 17], [7, "+", 11, 18], [7, "+", 12, 19], [7, "+", 13, 20], [8, "+", 10, 18], [8, "+", 11, 19], [8, "+", 12, 20], [9, "+", 10, 19], [9, "+", 11, 20], [10, "+", 1, 11], [10, "+", 2, 12], [10, "+", 3, 13], [10, "+", 4, 14], [10, "+", 5, 15], [10, "+", 6, 16], [10, "+", 7, 17], [10, "+", 8, 18], [10, "+", 9, 19], [10, "+", 10, 20], [11, "+", 1, 12], [11, "+", 2, 13], [11, "+", 3, 14], [11, "+", 4, 15], [11, "+", 5, 16], [11, "+", 6, 17], [11, "+", 7, 18], [11, "+", 8, 19], [11, "+", 9, 20], [12, "+", 1, 13], [12, "+", 2, 14], [12, "+", 3, 15], [12, "+", 4, 16], [12, "+", 5, 17], [12, "+", 6, 18], [12, "+", 7, 19], [12, "+", 8, 20], [13, "+", 1, 14], [13, "+", 2, 15], [13, "+", 3, 16], [13, "+", 4, 17], [13, "+", 5, 18], [13, "+", 6, 19], [13, "+", 7, 20], [14, "+", 1, 15], [14, "+", 2, 16], [14, "+", 3, 17], [14, "+", 4, 18], [14, "+", 5, 19], [14, "+", 6, 20], [15, "+", 1, 16], [15, "+", 2, 17], [15, "+", 3, 18], [15, "+", 4, 19], [15, "+", 5, 20], [16, "+", 1, 17], [16, "+", 2, 18], [16, "+", 3, 19], [16, "+", 4, 20], [17, "+", 1, 18], [17, "+", 2, 19], [17, "+", 3, 20], [18, "+", 1, 19], [18, "+", 2, 20], [19, "+", 1, 20]]}, "set3": {"id": "set3", "title": "Minus – Summanden unter 10", "emoji": "➖", "color_main": "#be185d", "color_bg": "#fce7f3", "color_border": "#f9a8d4", "color_light": "#fbcfe8", "color_dark": "#500724", "color_muted": "#f9a8d4", "storage_key": "weights_set3", "op_label": "Subtraktion", "badge": null, "cards": [[2, "-", 1, 1], [3, "-", 1, 2], [3, "-", 2, 1], [4, "-", 1, 3], [4, "-", 2, 2], [4, "-", 3, 1], [5, "-", 1, 4], [5, "-", 2, 3], [5, "-", 3, 2], [5, "-", 4, 1], [6, "-", 1, 5], [6, "-", 2, 4], [6, "-", 3, 3], [6, "-", 4, 2], [6, "-", 5, 1], [7, "-", 1, 6], [7, "-", 2, 5], [7, "-", 3, 4], [7, "-", 4, 3], [7, "-", 5, 2], [7, "-", 6, 1], [8, "-", 1, 7], [8, "-", 2, 6], [8, "-", 3, 5], [8, "-", 4, 4], [8, "-", 5, 3], [8, "-", 6, 2], [8, "-", 7, 1], [9, "-", 1, 8], [9, "-", 2, 7], [9, "-", 3, 6], [9, "-", 4, 5], [9, "-", 5, 4], [9, "-", 6, 3], [9, "-", 7, 2], [9, "-", 8, 1]]}, "set4": {"id": "set4", "title": "Minus – Summanden 10 bis 20", "emoji": "➖", "color_main": "#b45309", "color_bg": "#fef3c7", "color_border": "#fcd34d", "color_light": "#fde68a", "color_dark": "#451a03", "color_muted": "#fcd34d", "storage_key": "weights_set4", "op_label": "Subtraktion", "badge": null, "cards": [[10, "-", 1, 9], [10, "-", 2, 8], [10, "-", 3, 7], [10, "-", 4, 6], [10, "-", 5, 5], [10, "-", 6, 4], [10, "-", 7, 3], [10, "-", 8, 2], [10, "-", 9, 1], [11, "-", 1, 10], [11, "-", 2, 9], [11, "-", 3, 8], [11, "-", 4, 7], [11, "-", 5, 6], [11, "-", 6, 5], [11, "-", 7, 4], [11, "-", 8, 3], [11, "-", 9, 2], [11, "-", 10, 1], [12, "-", 1, 11], [12, "-", 2, 10], [12, "-", 3, 9], [12, "-", 4, 8], [12, "-", 5, 7], [12, "-", 6, 6], [12, "-", 7, 5], [12, "-", 8, 4], [12, "-", 9, 3], [12, "-", 10, 2], [12, "-", 11, 1], [13, "-", 1, 12], [13, "-", 2, 11], [13, "-", 3, 10], [13, "-", 4, 9], [13, "-", 5, 8], [13, "-", 6, 7], [13, "-", 7, 6], [13, "-", 8, 5], [13, "-", 9, 4], [13, "-", 10, 3], [13, "-", 11, 2], [13, "-", 12, 1], [14, "-", 1, 13], [14, "-", 2, 12], [14, "-", 3, 11], [14, "-", 4, 10], [14, "-", 5, 9], [14, "-", 6, 8], [14, "-", 7, 7], [14, "-", 8, 6], [14, "-", 9, 5], [14, "-", 10, 4], [14, "-", 11, 3], [14, "-", 12, 2], [14, "-", 13, 1], [15, "-", 1, 14], [15, "-", 2, 13], [15, "-", 3, 12], [15, "-", 4, 11], [15, "-", 5, 10], [15, "-", 6, 9], [15, "-", 7, 8], [15, "-", 8, 7], [15, "-", 9, 6], [15, "-", 10, 5], [15, "-", 11, 4], [15, "-", 12, 3], [15, "-", 13, 2], [15, "-", 14, 1], [16, "-", 1, 15], [16, "-", 2, 14], [16, "-", 3, 13], [16, "-", 4, 12], [16, "-", 5, 11], [16, "-", 6, 10], [16, "-", 7, 9], [16, "-", 8, 8], [16, "-", 9, 7], [16, "-", 10, 6], [16, "-", 11, 5], [16, "-", 12, 4], [16, "-", 13, 3], [16, "-", 14, 2], [16, "-", 15, 1], [17, "-", 1, 16], [17, "-", 2, 15], [17, "-", 3, 14], [17, "-", 4, 13], [17, "-", 5, 12], [17, "-", 6, 11], [17, "-", 7, 10], [17, "-", 8, 9], [17, "-", 9, 8], [17, "-", 10, 7], [17, "-", 11, 6], [17, "-", 12, 5], [17, "-", 13, 4], [17, "-", 14, 3], [17, "-", 15, 2], [17, "-", 16, 1], [18, "-", 1, 17], [18, "-", 2, 16], [18, "-", 3, 15], [18, "-", 4, 14], [18, "-", 5, 13], [18, "-", 6, 12], [18, "-", 7, 11], [18, "-", 8, 10], [18, "-", 9, 9], [18, "-", 10, 8], [18, "-", 11, 7], [18, "-", 12, 6], [18, "-", 13, 5], [18, "-", 14, 4], [18, "-", 15, 3], [18, "-", 16, 2], [18, "-", 17, 1], [19, "-", 1, 18], [19, "-", 2, 17], [19, "-", 3, 16], [19, "-", 4, 15], [19, "-", 5, 14], [19, "-", 6, 13], [19, "-", 7, 12], [19, "-", 8, 11], [19, "-", 9, 10], [19, "-", 10, 9], [19, "-", 11, 8], [19, "-", 12, 7], [19, "-", 13, 6], [19, "-", 14, 5], [19, "-", 15, 4], [19, "-", 16, 3], [19, "-", 17, 2], [19, "-", 18, 1], [20, "-", 1, 19], [20, "-", 2, 18], [20, "-", 3, 17], [20, "-", 4, 16], [20, "-", 5, 15], [20, "-", 6, 14], [20, "-", 7, 13], [20, "-", 8, 12], [20, "-", 9, 11], [20, "-", 10, 10], [20, "-", 11, 9], [20, "-", 12, 8], [20, "-", 13, 7], [20, "-", 14, 6], [20, "-", 15, 5], [20, "-", 16, 4], [20, "-", 17, 3], [20, "-", 18, 2], [20, "-", 19, 1]]}};
 
+// ── PROFILES ──
+const AVATARS = ['😀','🐱','🐶','🦊','🐸','🐧','🦄','🌟','🎈','🚀','🍎','🎨'];
+let activeUserId = null;
+
+function getProfiles(){
+  try{return JSON.parse(localStorage.getItem('profiles')||'[]');}catch(e){return[];}
+}
+function saveProfiles(p){
+  try{localStorage.setItem('profiles',JSON.stringify(p));}catch(e){}
+}
+function genId(){return 'u'+Date.now().toString(36)+Math.random().toString(36).slice(2,5);}
+
+function userKey(k){return 'u_'+activeUserId+'_'+k;}
+
+const TEST_PROFILE_ID='builtin_test';
+
+function ensureTestProfile(){
+  const profiles=getProfiles();
+  if(!profiles.find(p=>p.id===TEST_PROFILE_ID)){
+    profiles.unshift({id:TEST_PROFILE_ID,name:'Test',avatar:'🧪'});
+    saveProfiles(profiles);
+  }
+}
+
+function initProfiles(){
+  ensureTestProfile();
+  document.getElementById('screen-profiles').style.display='flex';
+  renderProfileScreen();
+}
+
+function renderProfileScreen(){
+  const profiles=getProfiles();
+  const grid=document.getElementById('profiles-grid');
+  grid.innerHTML='';
+  for(const p of profiles){
+    const div=document.createElement('div');
+    div.className='profile-tile';
+    // compute streak for display
+    let meta='';
+    try{
+      const stats=JSON.parse(localStorage.getItem('u_'+p.id+'_appStats')||'{}');
+      if(stats.streakDays) meta='🔥 '+stats.streakDays+' Tag'+(stats.streakDays===1?'':'e');
+      if(stats.totalRounds) meta+=(meta?' · ':'')+'⭐ '+stats.totalRounds+' Runde'+(stats.totalRounds===1?'':'n');
+    }catch(e){}
+    div.innerHTML=`<div class="profile-avatar">${p.avatar}</div>
+      <div style="flex:1"><div class="profile-name">${escHtml(p.name)}</div>${meta?'<div class="profile-meta">'+meta+'</div>':''}</div>
+      <div class="profile-arrow">›</div>`;
+    div.onclick=()=>selectProfile(p.id);
+    grid.appendChild(div);
+  }
+}
+
+function escHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function selectProfile(id){
+  activeUserId=id;
+  updateUserChip();
+  document.getElementById('screen-profiles').style.display='none';
+  document.getElementById('screen-menu').style.display='block';
+  renderMenu();
+}
+
+function updateUserChip(){
+  const profiles=getProfiles();
+  const p=profiles.find(x=>x.id===activeUserId);
+  if(!p) return;
+  document.getElementById('user-chip-avatar').textContent=p.avatar;
+  document.getElementById('user-chip-name').textContent=p.name;
+}
+
+function switchUser(){
+  stopTimer();
+  ['screen-menu','screen-app','screen-finish','screen-settings'].forEach(id=>{
+    document.getElementById(id).style.display='none';
+  });
+  document.getElementById('screen-profiles').style.display='flex';
+  renderProfileScreen();
+}
+
+// ── PROFILE CREATION ──
+let createFirstProfile=false;
+let selectedAvatar=AVATARS[0];
+
+function showCreateProfile(isFirst=false){
+  createFirstProfile=isFirst;
+  selectedAvatar=AVATARS[0];
+  document.getElementById('profile-name-input').value='';
+  document.getElementById('profile-create-error').textContent='';
+  // build avatar picker
+  const picker=document.getElementById('avatar-picker');
+  picker.innerHTML='';
+  AVATARS.forEach(a=>{
+    const btn=document.createElement('button');
+    btn.className='avatar-opt'+(a===selectedAvatar?' selected':'');
+    btn.textContent=a;
+    btn.onclick=()=>{selectedAvatar=a;picker.querySelectorAll('.avatar-opt').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');};
+    picker.appendChild(btn);
+  });
+  // hide cancel on first launch
+  document.querySelector('.btn-create-cancel').style.display=isFirst?'none':'';
+  document.getElementById('profile-create-overlay').classList.add('show');
+  setTimeout(()=>document.getElementById('profile-name-input').focus(),200);
+}
+
+function closeCreateProfile(){
+  document.getElementById('profile-create-overlay').classList.remove('show');
+}
+
+function confirmCreateProfile(){
+  const name=document.getElementById('profile-name-input').value.trim();
+  if(!name){document.getElementById('profile-create-error').textContent='Bitte einen Namen eingeben.';return;}
+  const profiles=getProfiles();
+  const newProfile={id:genId(),name,avatar:selectedAvatar};
+  profiles.push(newProfile);
+  saveProfiles(profiles);
+  closeCreateProfile();
+  if(createFirstProfile){
+    selectProfile(newProfile.id);
+  } else {
+    renderProfileScreen();
+    renderProfileManageList();
+  }
+}
+
+// ── CONFIRM OVERLAY ──
+let confirmCallback=null;
+function showConfirm(title,text,cb){
+  confirmCallback=cb;
+  document.getElementById('confirm-title').textContent=title;
+  document.getElementById('confirm-text').textContent=text;
+  document.getElementById('btn-confirm-ok').onclick=()=>{closeConfirm();if(confirmCallback)confirmCallback();};
+  document.getElementById('confirm-overlay').classList.add('show');
+}
+function closeConfirm(){document.getElementById('confirm-overlay').classList.remove('show');}
+
+// ── DELETE PROFILE ──
+function deleteProfile(id){
+  const profiles=getProfiles();
+  const p=profiles.find(x=>x.id===id);
+  if(!p) return;
+  showConfirm(
+    'Profil löschen?',
+    '"'+p.name+'" und der gesamte Lernfortschritt werden unwiderruflich gelöscht.',
+    ()=>{
+      // remove all localStorage keys for this user
+      const prefix='u_'+id+'_';
+      const toRemove=[];
+      for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith(prefix))toRemove.push(k);}
+      toRemove.forEach(k=>{try{localStorage.removeItem(k);}catch(e){}});
+      // remove from profiles list
+      let updated=profiles.filter(x=>x.id!==id);
+      saveProfiles(updated);
+      // Re-create Test profile if it was deleted
+      if(id===TEST_PROFILE_ID){
+        const tp={id:TEST_PROFILE_ID,name:'Test',avatar:'🧪'};
+        updated=[tp,...updated];
+        saveProfiles(updated);
+      }
+      renderProfileManageList();
+      // if active user was deleted, switch user
+      if(id===activeUserId){
+        if(updated.length===0){
+          // no profiles left — go back to profile screen / create
+          ['screen-menu','screen-settings'].forEach(id=>document.getElementById(id).style.display='none');
+          document.getElementById('screen-profiles').style.display='flex';
+          renderProfileScreen();
+          showCreateProfile(true);
+        } else {
+          // auto-select first remaining profile
+          selectProfile(updated[0].id);
+          document.getElementById('screen-settings').style.display='none';
+        }
+      }
+    }
+  );
+}
+
+function renderProfileManageList(){
+  const list=document.getElementById('profile-manage-list');
+  if(!list) return;
+  const profiles=getProfiles();
+  list.innerHTML='';
+  for(const p of profiles){
+    const div=document.createElement('div');div.className='profile-manage-item';
+    const isTest=p.id===TEST_PROFILE_ID;
+    div.innerHTML=`<div class="profile-manage-avatar">${p.avatar}${isTest?'<span style="font-size:9px;vertical-align:top">🔒</span>':''}</div>
+      <div class="profile-manage-name">${escHtml(p.name)}${p.id===activeUserId?' <span style="font-size:11px;color:var(--muted)">(aktiv)</span>':''}</div>
+      <button class="btn-delete-profile" onclick="deleteProfile('${p.id}')">🗑 Löschen</button>`;
+    list.appendChild(div);
+  }
+}
+
 // ── SETTINGS ──
 const DEFAULTS = {deckSize:10, timerSecs:10, showNL:true, sequential:false, bothDir:false, pin:null};
 function getS(k){
-  const v=localStorage.getItem('setting_'+k);
+  const v=localStorage.getItem(userKey('setting_'+k));
   if(v===null) return DEFAULTS[k];
   if(v==='true') return true;
   if(v==='false') return false;
   const n=Number(v);
   return isNaN(n)?v:n;
 }
-function setS(k,v){localStorage.setItem('setting_'+k,v);}
+function setS(k,v){localStorage.setItem(userKey('setting_'+k),v);}
 
 // ── AUDIO ──
 const AudioCtx=window.AudioContext||window.webkitAudioContext;
@@ -402,8 +694,8 @@ function playWrong(){
 }
 
 // ── STATS ──
-function getStats(){try{return JSON.parse(localStorage.getItem('appStats')||'{}')}catch(e){return{}}}
-function saveStats(s){try{localStorage.setItem('appStats',JSON.stringify(s));}catch(e){}}
+function getStats(){try{return JSON.parse(localStorage.getItem(userKey('appStats'))||'{}')}catch(e){return{}}}
+function saveStats(s){try{localStorage.setItem(userKey('appStats'),JSON.stringify(s));}catch(e){}}
 function recordRound(){
   const s=getStats();
   s.totalRounds=(s.totalRounds||0)+1;
@@ -421,8 +713,8 @@ function updateMetaBar(){
 }
 
 // ── WEIGHTS / PROGRESS ──
-function loadWeights(k){try{const s=localStorage.getItem(k);return s?JSON.parse(s):{}}catch(e){return{}}}
-function saveWeights(){try{localStorage.setItem(currentSet.storage_key,JSON.stringify(weights));}catch(e){}}
+function loadWeights(k){try{const s=localStorage.getItem(userKey(k));return s?JSON.parse(s):{}}catch(e){return{}}}
+function saveWeights(){try{localStorage.setItem(userKey(currentSet.storage_key),JSON.stringify(weights));}catch(e){}}
 function cardKey(c){return c[0]+c[1]+c[2]}
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 
@@ -630,6 +922,11 @@ function updateUI(){
 // ── MENU ──
 function renderMenu(){
   updateMetaBar();
+  const profiles=getProfiles();
+  const p=profiles.find(x=>x.id===activeUserId);
+  if(p){
+    document.getElementById('menu-sub-deck').textContent=p.name+' – Wähle einen Kartensatz';
+  }
   const grid=document.getElementById('set-grid');grid.innerHTML='';
   for(const [id,s] of Object.entries(SETS)){
     const w=loadWeights(s.storage_key),weak=Object.values(w).filter(v=>v>=4).length,total=Object.keys(w).length;
@@ -706,7 +1003,7 @@ function restart(){
 
 function resetCurrent(){
   if(confirm('Lernfortschritt für diesen Satz zurücksetzen?')){
-    weights={};try{localStorage.removeItem(currentSet.storage_key);}catch(e){}restart();
+    weights={};try{localStorage.removeItem(userKey(currentSet.storage_key));}catch(e){}restart();
   }
 }
 
@@ -733,6 +1030,8 @@ function openSettings(){
   setToggle('tog-seq',getS('sequential'));
   setToggle('tog-both',getS('bothDir'));
   setToggle('tog-pin',!!getS('pin'));
+  // profile manage list
+  renderProfileManageList();
   // reset list
   const list=document.getElementById('reset-list');list.innerHTML='';
   for(const [id,s] of Object.entries(SETS)){
@@ -766,13 +1065,13 @@ function setToggle(id,on){
 function resetOne(id){
   const s=SETS[id];
   if(confirm('Fortschritt für "'+s.title+'" zurücksetzen?')){
-    try{localStorage.removeItem(s.storage_key);}catch(e){}openSettings();
+    try{localStorage.removeItem(userKey(s.storage_key));}catch(e){}openSettings();
   }
 }
 
 function resetAll(){
   if(confirm('Gesamten Lernfortschritt zurücksetzen?')){
-    for(const s of Object.values(SETS)){try{localStorage.removeItem(s.storage_key);}catch(e){}}
+    for(const s of Object.values(SETS)){try{localStorage.removeItem(userKey(s.storage_key));}catch(e){}}
     openSettings();
   }
 }
@@ -836,6 +1135,7 @@ const HELP = {
       <div class="help-section">
         <div class="help-section-title">Lernfortschritt</div>
         <p>Der Fortschritt wird automatisch auf diesem Gerät gespeichert und bleibt erhalten, auch wenn die App geschlossen oder das Gerät neu gestartet wird.</p>
+        <p>Jedes Profil speichert seinen Fortschritt und seine Einstellungen separat. Profile können in den Einstellungen verwaltet werden.</p>
         <p>Der Balken unter jedem Kartensatz zeigt, wie gut dieser Satz bereits beherrscht wird.</p>
       </div>`
   },
@@ -916,6 +1216,11 @@ const HELP = {
       </div>
       <hr class="help-divider">
       <div class="help-section">
+        <div class="help-section-title">Profile verwalten</div>
+        <p>Hier können neue Profile angelegt oder bestehende gelöscht werden. Das Löschen eines Profils entfernt den gesamten Lernfortschritt und kann nicht rückgängig gemacht werden.</p>
+      </div>
+      <hr class="help-divider">
+      <div class="help-section">
         <div class="help-section-title">Lernfortschritt zurücksetzen</div>
         <p>Setzt die gespeicherten Lerngewichte für einzelne oder alle Kartensätze zurück. Danach werden alle Karten wieder gleichmäßig häufig gezeigt.</p>
       </div>`
@@ -936,7 +1241,9 @@ function closeHelpBtn(){
 }
 
 // ── INIT ──
-renderMenu();
+// Hide all screens except profiles on start
+document.getElementById('screen-menu').style.display='none';
+initProfiles();
 </script>
 </body>
 </html>
