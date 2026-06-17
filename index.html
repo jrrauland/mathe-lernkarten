@@ -58,6 +58,9 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:'Nu
 .card-scene{width:100%;perspective:1000px;cursor:pointer;}
 .card-body{width:100%;height:280px;position:relative;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.4,0,.2,1)}
 .card-body.flipped{transform:rotateY(180deg)}
+.card-body.shake{animation:shake 0.5s ease;}
+@keyframes shake{0%,100%{transform:translateX(0)}15%{transform:translateX(-10px)}35%{transform:translateX(10px)}55%{transform:translateX(-8px)}75%{transform:translateX(8px)}90%{transform:translateX(-4px)}}
+.flash-overlay{position:absolute;inset:0;border-radius:18px;pointer-events:none;opacity:0;z-index:20;}
 .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:var(--radius);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:24px 20px;}
 .face-front{background:var(--surface);border:1.5px solid var(--border);box-shadow:0 2px 12px rgba(0,0,0,.08);}
 .face-back{transform:rotateY(180deg);box-shadow:0 2px 12px rgba(0,0,0,.08);}
@@ -94,6 +97,7 @@ html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:'Nu
 .save-badge{font-size:12px;color:var(--green);font-weight:700;text-align:center}
 .btn-row-finish{display:flex;gap:10px;width:100%}
 .btn-restart{flex:1;padding:16px;border:none;border-radius:14px;color:#fff;font-family:'Nunito',sans-serif;font-size:17px;font-weight:800;cursor:pointer;}
+.btn-retry-wrong{width:100%;padding:15px;border:2px solid #fca5a5;border-radius:14px;background:var(--red-bg);color:var(--red);font-family:'Nunito',sans-serif;font-size:16px;font-weight:800;cursor:pointer;}
 .btn-reset-fin{padding:16px 14px;background:var(--surface);border:1.5px solid var(--border);border-radius:14px;color:var(--muted);font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
 .btn-back-finish{width:100%;padding:16px;background:#EAF3DE;border:1.5px solid #C0DD97;border-radius:14px;color:#27500A;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;cursor:pointer;}
 
@@ -275,7 +279,7 @@ hr.help-divider{border:none;border-top:1px solid var(--border);margin:14px 0;}
       <div class="app-title" id="app-title"></div>
       <div style="display:flex;align-items:center;gap:8px;">
         <button class="btn-help" onclick="showHelp('app')"><span class="btn-help-icon">?</span><span class="btn-help-label">Hilfe</span></button>
-        <div class="round-badge" id="round-badge">1 / 10</div>
+        <div class="round-badge" id="round-badge"><div id="badge-card">1 / 10</div><div id="badge-round" style="font-size:10px;color:var(--muted);text-align:center;margin-top:1px;">Runde 1</div></div>
       </div>
     </div>
     <div class="stats">
@@ -288,6 +292,7 @@ hr.help-divider{border:none;border-top:1px solid var(--border);margin:14px 0;}
       <button class="nav-btn nav-btn-left" onclick="navCard(-1)"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><polyline points="14,4 7,11 14,18" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       <div class="card-scene" onclick="flipCard()">
         <div class="card-body" id="card-body">
+          <div class="flash-overlay" id="flash-overlay"></div>
           <div class="countdown-num" id="countdown-num"></div>
           <div class="face face-front">
             <div class="op-tag" id="op-tag-front"></div>
@@ -337,6 +342,7 @@ hr.help-divider{border:none;border-top:1px solid var(--border);margin:14px 0;}
   <div class="weak-section" id="weak-section" style="display:none">
     <div class="weak-title">⚠️ Noch üben</div><div id="weak-items"></div>
   </div>
+  <button class="btn-retry-wrong" id="btn-retry-wrong" onclick="retryWrong()" style="display:none">🔴 Rote Karten wiederholen</button>
   <div class="btn-row-finish">
     <button class="btn-restart" id="btn-restart" onclick="restart()">Nächste Runde →</button>
     <button class="btn-reset-fin" onclick="resetCurrent()">🗑 Reset</button>
@@ -659,39 +665,33 @@ function getS(k){
 }
 function setS(k,v){localStorage.setItem(userKey('setting_'+k),v);}
 
-// ── AUDIO ──
-const AudioCtx=window.AudioContext||window.webkitAudioContext;
-let actx=null;
-function getACtx(){if(!actx){try{actx=new AudioCtx();}catch(e){}}return actx;}
-
-function note(freq,start,dur,vol=0.4,type='sine',attack=0.02){
-  try{
-    const c=getACtx();if(!c)return;
-    const o=c.createOscillator(),g=c.createGain();
-    o.connect(g);g.connect(c.destination);
-    o.type=type;o.frequency.setValueAtTime(freq,c.currentTime+start);
-    g.gain.setValueAtTime(0,c.currentTime+start);
-    g.gain.linearRampToValueAtTime(vol,c.currentTime+start+attack);
-    g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+start+dur);
-    o.start(c.currentTime+start);o.stop(c.currentTime+start+dur+0.05);
-  }catch(e){}
+// ── VISUAL FEEDBACK ──
+function flashCard(color, shake=false){
+  return new Promise(resolve=>{
+    const overlay=document.getElementById('flash-overlay');
+    const body=document.getElementById('card-body');
+    overlay.style.background=color;
+    overlay.style.opacity='0.45';
+    overlay.style.transition='none';
+    if(shake){
+      body.classList.remove('shake');
+      // force reflow so re-adding the class restarts the animation
+      void body.offsetWidth;
+      body.classList.add('shake');
+    }
+    // fade out after 1.3s, resolve at 2s
+    setTimeout(()=>{
+      overlay.style.transition='opacity 0.5s ease';
+      overlay.style.opacity='0';
+    }, 1300);
+    setTimeout(()=>{
+      if(shake) body.classList.remove('shake');
+      resolve();
+    }, 2000);
+  });
 }
-
-function playCorrect(){
-  // Glockenspiel: bright bell tones C6 E6 G6 C7
-  note(1047,0,1.2,0.35,'sine');
-  note(1319,0.15,1.0,0.3,'sine');
-  note(1568,0.3,1.0,0.3,'sine');
-  note(2093,0.5,1.4,0.35,'sine');
-}
-
-function playWrong(){
-  // Buzzer: descending sawtooth blats
-  note(180,0,0.15,0.5,'sawtooth');
-  note(160,0.15,0.15,0.45,'sawtooth');
-  note(140,0.3,0.2,0.4,'sawtooth');
-  note(120,0.5,0.4,0.35,'sawtooth');
-}
+function playCorrect(){return flashCard('#16a34a', false);}
+function playWrong(){return flashCard('#dc2626', true);}
 
 // ── STATS ──
 function getStats(){try{return JSON.parse(localStorage.getItem(userKey('appStats'))||'{}')}catch(e){return{}}}
@@ -705,6 +705,13 @@ function recordRound(){
   else{s.streakDays=1;}
   s.lastDay=today;
   saveStats(s);
+  // per-deck round counter
+  if(currentSet){
+    const dk=userKey('deckStats_'+currentSet.storage_key);
+    let ds={};try{ds=JSON.parse(localStorage.getItem(dk)||'{}');}catch(e){}
+    ds.roundsDone=(ds.roundsDone||0)+1;
+    try{localStorage.setItem(dk,JSON.stringify(ds));}catch(e){}
+  }
 }
 function updateMetaBar(){
   const s=getStats();
@@ -719,7 +726,7 @@ function cardKey(c){return c[0]+c[1]+c[2]}
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 
 // ── DECK BUILDING ──
-let currentSet=null,deck=[],idx=0,flipped=false,correct=0,wrong=0,round=1,answered={},weights={};
+let currentSet=null,deck=[],idx=0,flipped=false,correct=0,wrong=0,round=1,answered={},weights={},totalRounds=1,roundWrongCards=[];
 
 function buildDeck(){
   const DECK=getS('deckSize');
@@ -735,6 +742,8 @@ function buildDeck(){
     }
     source=[...source,...extras];
   }
+
+  totalRounds=Math.ceil(source.length/DECK);
 
   if(seq){
     // sequential: cycle through cards in fixed order based on round
@@ -904,14 +913,22 @@ function flipCard(){
 
 function navCard(dir){stopTimer();idx=(idx+dir+deck.length)%deck.length;showCard();}
 
-function grade(ok){
+async function grade(ok){
   const k=cardKey(deck[idx]);
   if(answered[idx]===undefined){if(ok)correct++;else wrong++;}
   else{if(answered[idx])correct--;else wrong--;if(ok)correct++;else wrong++;}
   answered[idx]=ok;
-  if(ok){weights[k]=Math.max(1,(weights[k]||1)-1);playCorrect();}
-  else{weights[k]=(weights[k]||1)+3;playWrong();}
+  // track wrong cards as card objects (deduplicated by key); remove if corrected
+  if(!ok && !roundWrongCards.find(c=>cardKey(c)===k)) roundWrongCards.push(deck[idx]);
+  else if(ok) roundWrongCards=roundWrongCards.filter(c=>cardKey(c)!==k);
+  if(ok){weights[k]=Math.max(1,(weights[k]||1)-1);}
+  else{weights[k]=(weights[k]||1)+3;}
   saveWeights();
+  updateUI();
+  // disable answer buttons during flash pause
+  document.querySelectorAll('.btn-ans').forEach(b=>b.disabled=true);
+  if(ok) await playCorrect(); else await playWrong();
+  document.querySelectorAll('.btn-ans').forEach(b=>b.disabled=false);
   const ni=idx+1;if(ni>=deck.length)finish();else{idx=ni;showCard();}
 }
 
@@ -921,7 +938,9 @@ function updateUI(){
   document.getElementById('s-wrong').textContent=wrong;
   const ac=Object.keys(answered).length;
   document.getElementById('prog').style.width=(deck.length?Math.round(ac/deck.length*100):0)+'%';
-  document.getElementById('round-badge').textContent=(idx+1)+' / '+deck.length;
+  document.getElementById('badge-card').textContent=(idx+1)+' / '+deck.length;
+  const roundLabel=totalRounds>1?'Runde '+round+' / '+totalRounds:'Runde '+round;
+  document.getElementById('badge-round').textContent=roundLabel;
   const weak=Object.entries(weights).filter(([k,w])=>w>=4).sort((a,b)=>b[1]-a[1]).slice(0,5);
   const row=document.getElementById('weak-row');row.innerHTML='';
   for(const [k,w] of weak){const s=document.createElement('span');s.className='chip';s.textContent='⚠ '+k;row.appendChild(s)}
@@ -941,10 +960,15 @@ function renderMenu(){
   for(const [id,s] of Object.entries(SETS)){
     const w=loadWeights(s.storage_key),weak=Object.values(w).filter(v=>v>=4).length,total=Object.keys(w).length;
     const pct=total>0?Math.max(5,Math.round((1-weak/s.cards.length)*100)):0;
+    const deckSize=getS('deckSize');
+    const roundsTotal=Math.ceil(s.cards.length/deckSize);
+    let roundsDone=0;
+    try{const dk=userKey('deckStats_'+s.storage_key);const ds=JSON.parse(localStorage.getItem(dk)||'{}');roundsDone=ds.roundsDone||0;}catch(e){}
+    const roundInfo=roundsDone>0?' · 🔄 '+Math.min(roundsDone,roundsTotal)+'/'+roundsTotal+' Runden':'';
     const div=document.createElement('div');div.className='set-card';
     div.innerHTML=`<div class="set-icon">${s.emoji}</div>
       <div class="set-info"><div class="set-title" style="color:${s.color_main}">${s.title}</div>
-      <div class="set-meta">${s.cards.length} Aufgaben${weak>0?' · ⚠ '+weak+' im Training':total>0?' · Gut gemacht! ✓':''}</div></div>
+      <div class="set-meta">${s.cards.length} Aufgaben${weak>0?' · ⚠ '+weak+' im Training':total>0?' · Gut gemacht! ✓':''}${roundInfo}</div></div>
       ${s.badge?'<div class="set-badge">'+s.badge+'</div>':''}
       <div class="set-arrow">›</div>
       ${total>0?'<div class="set-progress" style="background:'+s.color_main+';width:'+pct+'%"></div>':''}`;
@@ -954,7 +978,7 @@ function renderMenu(){
 
 function startSet(id){
   currentSet=SETS[id];weights=loadWeights(currentSet.storage_key);
-  idx=0;correct=0;wrong=0;round=1;answered={};deck=buildDeck();
+  idx=0;correct=0;wrong=0;round=1;answered={};roundWrongCards=[];deck=buildDeck();
   document.getElementById('app-title').textContent=currentSet.emoji+' '+currentSet.title;
   document.getElementById('app-title').style.color=currentSet.color_main;
   document.getElementById('prog').style.background=currentSet.color_main;
@@ -1001,10 +1025,24 @@ function finish(){
   const ws=document.getElementById('weak-section'),wi=document.getElementById('weak-items');
   if(weak.length){ws.style.display='block';wi.innerHTML='';for(const [k,w] of weak){const d=document.createElement('div');d.className='weak-item';d.innerHTML='<span>'+k+'</span><span class="err-badge">'+Math.round(w-1)+'× falsch</span>';wi.appendChild(d)}}
   else ws.style.display='none';
+  // show retry-wrong button only if there are wrong cards from this round
+  document.getElementById('btn-retry-wrong').style.display=roundWrongCards.length?'block':'none';
 }
 
 function restart(){
-  idx=0;correct=0;wrong=0;round++;answered={};deck=buildDeck();
+  idx=0;correct=0;wrong=0;round++;answered={};roundWrongCards=[];deck=buildDeck();
+  document.getElementById('screen-finish').style.display='none';
+  document.getElementById('screen-app').style.display='block';
+  const arc=document.getElementById('ring-arc');arc.style.transition='none';arc.style.strokeDashoffset=289;
+  showCard();
+}
+
+function retryWrong(){
+  // drill only the cards answered wrong this round; don't advance round or record stats
+  deck=[...roundWrongCards];
+  roundWrongCards=[];
+  idx=0;correct=0;wrong=0;answered={};
+  document.getElementById('badge-round').textContent='Wiederholung';
   document.getElementById('screen-finish').style.display='none';
   document.getElementById('screen-app').style.display='block';
   const arc=document.getElementById('ring-arc');arc.style.transition='none';arc.style.strokeDashoffset=289;
@@ -1019,7 +1057,10 @@ function resetCurrent(){
     setTimeout(()=>{btn.dataset.confirm='';btn.textContent='🗑 Reset';},3000);
     return;
   }
-  weights={};try{localStorage.removeItem(userKey(currentSet.storage_key));}catch(e){}restart();
+  weights={};
+  try{localStorage.removeItem(userKey(currentSet.storage_key));}catch(e){}
+  try{localStorage.removeItem(userKey('deckStats_'+currentSet.storage_key));}catch(e){}
+  restart();
 }
 
 // ── SETTINGS ──
@@ -1092,6 +1133,7 @@ function resetOne(id){
 function resetOneConfirm(id){
   const s=SETS[id];
   try{localStorage.removeItem(userKey(s.storage_key));}catch(e){}
+  try{localStorage.removeItem(userKey('deckStats_'+s.storage_key));}catch(e){}
   openSettings();
 }
 
@@ -1105,7 +1147,10 @@ function resetAll(){
     return;
   }
   if(btn){btn.dataset.confirm='';btn.textContent='🗑 Alle zurücksetzen';btn.style.opacity='';}
-  for(const s of Object.values(SETS)){try{localStorage.removeItem(userKey(s.storage_key));}catch(e){}}
+  for(const s of Object.values(SETS)){
+    try{localStorage.removeItem(userKey(s.storage_key));}catch(e){}
+    try{localStorage.removeItem(userKey('deckStats_'+s.storage_key));}catch(e){}
+  }
   openSettings();
 }
 
